@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-4"></div>
+  <div class="col-4">
+    <div class="card mb-5">
+      <div class="card-header">
+        <a href="/users" class="btn btn-md btn-secondary"><i
+            class="fas fa-chevron-left"
+          ></i></a>
+      </div>
+      <div class="card-body">
+
+        <form class="" action="/users/games" method="POST">
+          <input type="hidden" name="userId" value="{{user.id}}" />
+          <label class="form-group">Choose rooms</label>
+          <div class="form-group">
+            <select name="gameId" class="form-control">
+              <option selected disabled>Choose rooms</option>
+              {{#each gameData}}
+                <option value="{{id}}">{{room}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary float-right">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-4"></div>
+</div>

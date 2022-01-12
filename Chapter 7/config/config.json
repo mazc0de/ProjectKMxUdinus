@@ -1,0 +1,24 @@
+{
+  "development": {
+    "logging": false,
+    "username": "daffa",
+    "password": "1",
+    "database": "FSW2108KM0015_chapter_ch07",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "daffa",
+    "password": "1",
+    "database": "FSW2108KM0015_chapter_ch07",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "daffa",
+    "password": "1",
+    "database": "FSW2108KM0015_chapter_ch07",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

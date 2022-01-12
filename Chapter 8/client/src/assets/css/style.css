@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,400;1,500;1,600;1,700&display=swap");
+
+.header-text-title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: #ffb548;
+}
+
+.login-register-header {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.level-card-player {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #aaaaaa;
+}
+
+.bio-card-level {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  color: #fff;
+}
+
+.subHeader {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.customCard {
+  background-color: "#262626";
+  border-radius: "10px";
+  height: "300px";
+}
+
+.customImageCard {
+  box-shadow: 7px 2px #ffb740;
+}
+
+.customPlayerNameCard {
+  font-weight: "700";
+  font-size: "1rem";
+  color: "#ffb548";
+}
+
+.customPlayerLevelCard {
+  color: "rgb(221 221 221)";
+}
+.customCardLevel {
+  cursor: pointer;
+  width: 150px;
+  height: 100px;
+  background-color: #262626;
+}
+.customCardLevel:hover {
+  background-color: #ffb740;
+}
+
+.cardLevelActive {
+  background-color: #ffa514;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.nav-link {
+  color: white;
+}
+.dropdown-menu {
+  padding: 0;
+}
+.dropdown-menu.show {
+  background-color: #262626;
+}
+
+.custom-header-footer-header {
+  background-color: rgb(38, 38, 38) !important;
+  border: none !important;
+}
+
+.card-footer {
+  background-color: rgb(38, 38, 38) !important;
+  border: none !important;
+}
+
+.custom-footer-card {
+  font-family: "Poppins", sans-serif;
+  color: #aaa;
+}
+
+.btn-card-footer {
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+}
+.btn-card-footer:hover {
+  background: #dfa700 !important;
+}
+
+.sub-text-custom {
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-text {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+}
+
+.custom-card-player {
+  background-color: #262626;
+  border-radius: 10px;
+  height: 300px;
+}
+
+.img-profile-shadow {
+  box-shadow: 7px 2px #ffb740;
+}

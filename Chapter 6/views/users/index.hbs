@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <div class="card">
+      <div class="card-body">
+        <a
+          href="/users/create"
+          class="btn btn-sm btn-success mb-3 float-right"
+        ><i class="fas fa-plus mr-1"></i>Add User</a>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Username</th>
+              <th scope="col">Name</th>
+              <th scope="col">Rank</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each data}}
+              <tr>
+                <th scope="row">{{incremented @index}}</th>
+                <td>{{username}}</td>
+                <td>{{biodata.name}}</td>
+                <td>
+                  {{#ifEquals rank "Bronze"}}
+                    <h5>
+                      <span
+                        class="badge badge-pill bg-rank-bronze text-white badge-rank"
+                      >{{rank}}</span>
+                    </h5>
+                  {{/ifEquals}}
+                  {{#ifEquals rank "Silver"}}
+                    <h5>
+                      <span
+                        class="badge badge-pill bg-rank-silver text-white badge-rank"
+                      >{{rank}}</span>
+                    </h5>
+                  {{/ifEquals}}
+                  {{#ifEquals rank "Gold"}}
+                    <h5>
+                      <span
+                        class="badge badge-pill bg-rank-gold text-white badge-rank"
+                      >{{rank}}</span>
+                    </h5>
+                  {{/ifEquals}}
+                </td>
+                <td>
+                  <a
+                    href="/users/{{id}}/games"
+                    class="btn btn-sm btn-primary"
+                  ><i class="fas fa-gamepad mr-1"></i>Add Games Room</a>
+                  <a href="/users/{{id}}" class="btn btn-sm btn-success"><i
+                      class="fas fa-info-circle mr-1"
+                    ></i>Detail</a>
+                  <a href="/users/edit/{{id}}" class="btn btn-sm btn-info"><i
+                      class="fas fa-edit mr-1"
+                    ></i>Edit</a>
+                  <form
+                    method="post"
+                    action="/users/{{id}}?_method=DELETE"
+                    class="d-inline"
+                  >
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <button
+                      type="submit"
+                      class="btn btn-sm btn-danger"
+                      onclick="return confirm('Are you sure to delete?')"
+                    ><i class="fas fa-trash-alt mr-1"></i>Delete</button>
+                  </form>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-2"></div>
+</div>

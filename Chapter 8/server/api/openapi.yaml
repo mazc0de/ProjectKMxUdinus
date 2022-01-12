@@ -1,0 +1,2391 @@
+openapi: 3.0.3
+info:
+  title: RESTful API Suwit Games
+  description: This RESTful API is being used to manage the suwit games
+  version: 1.0.0
+servers:
+- url: /
+  description: Mock Server for Suwit Games
+tags:
+- name: Home
+  description: Containts various pages.
+- name: User & Auth
+  description: Containts login and register user endpoints.
+- name: User
+  description: Containts information about user
+- name: Admin
+  description: Containts admin operation
+- name: Game
+  description: Containts game information
+- name: Biodata
+  description: Containts biodata user
+- name: Room
+  description: Containts room information
+- name: Round
+  description: Containts round information
+- name: Stats
+  description: Containts stats information
+- name: Level
+  description: Containts level information
+- name: Roles
+  description: Containts roles information
+- name: Fight
+  description: Containts fight user
+paths:
+  /:
+    get:
+      tags:
+      - Home
+      summary: Landing Page Home
+      description: endpoint to display the front page.
+      operationId: rootGET
+      responses:
+        "200":
+          description: responses when user accessed home page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "404":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Home
+  /v1/login:
+    post:
+      tags:
+      - User & Auth
+      summary: Retieve access token user
+      description: This endpoint to retrieve the access token when user logged in
+        with correct credential.
+      operationId: userLogin
+      requestBody:
+        $ref: '#/components/requestBodies/userLogin'
+      responses:
+        "200":
+          description: response if user login with correct credential.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: response when the user login with invalid credential.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      x-swagger-router-controller: UserAuth
+  /v1/register:
+    post:
+      tags:
+      - User & Auth
+      summary: Register new user
+      description: This endpoint is used to register new users.
+      operationId: userRegister
+      requestBody:
+        $ref: '#/components/requestBodies/userRegister'
+      responses:
+        "201":
+          description: response when the user successfully registers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "400":
+          description: response when the user successfully registers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+      x-swagger-router-controller: UserAuth
+  /v1/profile:
+    get:
+      tags:
+      - User
+      - Biodata
+      summary: Retrieve user profile
+      description: This endpoint to get the user profile who logged in
+      operationId: getUser
+      responses:
+        "200":
+          description: response details of user who logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "404":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: User
+    put:
+      tags:
+      - User
+      - Biodata
+      summary: Update biodata
+      description: This endpoint to update biodata for user who logged in
+      operationId: updateBiodata
+      requestBody:
+        $ref: '#/components/requestBodies/updateBiodata'
+      responses:
+        "201":
+          description: response update biodata of user who logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_1'
+        "400":
+          description: response when invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_2'
+      x-swagger-router-controller: User
+    post:
+      tags:
+      - User
+      - Biodata
+      summary: Create biodata
+      description: This endpoint to create biodata for user who logged in
+      operationId: createBiodata
+      requestBody:
+        $ref: '#/components/requestBodies/createBiodata'
+      responses:
+        "201":
+          description: response create biodata of user who logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_2'
+        "400":
+          description: response when invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_3'
+      x-swagger-router-controller: User
+  /v1/admin/users:
+    get:
+      tags:
+      - Admin
+      summary: Retrieve all users
+      description: This endpoint to retrive all user who registered on suwitgames.com
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: Fetch all user who have been registered
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/user1'
+                  - $ref: '#/components/schemas/user2'
+                x-content-type: application/json
+        "404":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Admin
+  /v1/admin/users/{userId}:
+    get:
+      tags:
+      - Admin
+      summary: Retrieve user by id
+      description: This endpoint to retrive one user by id who registered on suwitgames.com
+      operationId: getUserById
+      parameters:
+      - name: userId
+        in: path
+        description: Id of user to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Fetch user by id who have been registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user1'
+        "400":
+          description: Response when user Id not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_4'
+      x-swagger-router-controller: Admin
+    put:
+      tags:
+      - Admin
+      summary: Update user biodata by id
+      description: This endpoint to update biodata user who have been registered by
+        id
+      operationId: updateBiodataById
+      parameters:
+      - name: userId
+        in: path
+        description: Id of user to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/updateBiodata'
+      responses:
+        "201":
+          description: response update biodata of user who logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_1'
+        "400":
+          description: response when invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_2'
+      x-swagger-router-controller: Admin
+    delete:
+      tags:
+      - Admin
+      summary: Delete user by id
+      description: This endpoint to delete user include biodata who have been registered
+        by id
+      operationId: deleteUserById
+      parameters:
+      - name: userId
+        in: path
+        description: Id of user to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "201":
+          description: Response is delete success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_3'
+        "400":
+          description: Response is delete success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_5'
+      x-swagger-router-controller: Admin
+  /v1/games:
+    get:
+      tags:
+      - Game
+      summary: Retrieve information game
+      description: This endpoint to retrieve all games information
+      operationId: getGames
+      responses:
+        "200":
+          description: Response for /games endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Game
+    post:
+      tags:
+      - Game
+      summary: Create Games
+      description: This endpoint to create games
+      operationId: createGames
+      responses:
+        "201":
+          description: Response for create gamescontent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_4'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Game
+  /v1/room:
+    get:
+      tags:
+      - Room
+      summary: Retrive information game room
+      description: This endpoint to retrieve all information about room in this game
+      operationId: getRoom
+      responses:
+        "200":
+          description: Response for /room endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_4'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Room
+    post:
+      tags:
+      - Room
+      summary: Create Room
+      description: This endpoint to create room in this game
+      operationId: createRoom
+      requestBody:
+        $ref: '#/components/requestBodies/createRoom'
+      responses:
+        "201":
+          description: Response for /room endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_5'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Room
+  /v1/room/{roomId}:
+    put:
+      tags:
+      - Room
+      summary: Create Room
+      description: This endpoint to create room in this game
+      operationId: createRoom
+      parameters:
+      - name: roomId
+        in: path
+        description: Id room
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/editRoom'
+      responses:
+        "201":
+          description: Response for /room endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_6'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Room
+    delete:
+      tags:
+      - Room
+      summary: Delete Room
+      operationId: deleteRoom
+      parameters:
+      - name: roomId
+        in: path
+        description: Id room
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "201":
+          description: Response when delete success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_3'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Room
+  /v1/round:
+    get:
+      tags:
+      - Round
+      summary: Retrieve round game information
+      description: This endpoint to retrieve all information about round in game
+      operationId: getRound
+      responses:
+        "200":
+          description: Response for /round endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_5'
+        "404":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Round
+    post:
+      tags:
+      - Round
+      summary: Create round
+      description: This endpoint to create round in game
+      operationId: createRound
+      requestBody:
+        $ref: '#/components/requestBodies/createRound'
+      responses:
+        "200":
+          description: Response for /round endpoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_6'
+        "404":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Round
+  /v1/stats:
+    get:
+      tags:
+      - Stats
+      summary: Retrive statistic player
+      description: This endpoint to retrieve all statistic player
+      operationId: getStats
+      responses:
+        "200":
+          description: Response for /stats endpoints
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_7'
+        "404":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Stats
+    post:
+      tags:
+      - Stats
+      summary: Create statistic
+      description: This endpoint to create statistic player
+      operationId: createStats
+      requestBody:
+        $ref: '#/components/requestBodies/createStats'
+      responses:
+        "201":
+          description: Response for /level endpoints
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_7'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Stats
+  /v1/level:
+    get:
+      tags:
+      - Level
+      summary: Retrieve user level
+      description: This endpoint to retrieve all user level are available
+      operationId: getLevel
+      responses:
+        "200":
+          description: Response for /level endpoints
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/novice'
+                  - $ref: '#/components/schemas/class_d'
+                  - $ref: '#/components/schemas/class_c'
+                  - $ref: '#/components/schemas/class_b'
+                  - $ref: '#/components/schemas/class_a'
+                  - $ref: '#/components/schemas/candidate_master'
+                  - $ref: '#/components/schemas/grand_master'
+                x-content-type: application/json
+        "404":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Level
+    post:
+      tags:
+      - Admin
+      - Level
+      summary: Create a new level
+      description: This endpoint to create a new level
+      operationId: v1LevelPOST
+      requestBody:
+        $ref: '#/components/requestBodies/createLevel'
+      responses:
+        "201":
+          description: Response for success creating role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_8'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Admin
+  /v1/level/{levelId}:
+    put:
+      tags:
+      - Admin
+      - Level
+      summary: Edit Level
+      description: This endpoint to edit level
+      operationId: v1LevelLevelIdPUT
+      parameters:
+      - name: levelId
+        in: path
+        description: Id of level
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/createLevel'
+      responses:
+        "201":
+          description: Response for success creating role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_9'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Admin
+    delete:
+      tags:
+      - Admin
+      - Level
+      summary: Delete Level
+      description: This endpoint to delete level
+      operationId: v1LevelLevelIdDELETE
+      parameters:
+      - name: levelId
+        in: path
+        description: Id of level
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "201":
+          description: Response when delete success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_3'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Admin
+  /v1/roles:
+    get:
+      tags:
+      - Roles
+      - Admin
+      summary: Retrieve roles user
+      description: This endpoint to retrieve all user role are available
+      operationId: getRoles
+      responses:
+        "200":
+          description: Response for /roles endpoints
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/admin'
+                  - $ref: '#/components/schemas/user'
+                x-content-type: application/json
+        "404":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Roles
+    post:
+      tags:
+      - Admin
+      - Roles
+      summary: Create new role
+      description: This endpoint for create a new role
+      operationId: v1RolesPOST
+      requestBody:
+        $ref: '#/components/requestBodies/createRole'
+      responses:
+        "201":
+          description: Response for success creating role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_10'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Admin
+  /v1/roles/{rolesId}:
+    put:
+      tags:
+      - Admin
+      - Roles
+      summary: Edit roles
+      description: This endpoint for edit role
+      operationId: v1RolesRolesIdPUT
+      parameters:
+      - name: rolesId
+        in: path
+        description: Id roles
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        $ref: '#/components/requestBodies/createRole'
+      responses:
+        "201":
+          description: Response for success updating role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_11'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Admin
+  /player/search:
+    get:
+      tags:
+      - Fight
+      - User
+      summary: Search player by point and level
+      description: This endpoint to search player by point and level
+      operationId: playerSearchGET
+      parameters:
+      - name: pointLevel
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: response for search player by point and level
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_8'
+        "404":
+          description: response for search player by point and level
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404_1'
+      x-swagger-router-controller: Fight
+  /player/fight:
+    post:
+      tags:
+      - Fight
+      - User
+      summary: Fight with player
+      description: This endpoint to fight with other player and create room
+      operationId: playerFightPOST
+      requestBody:
+        $ref: '#/components/requestBodies/fightPlayer'
+      responses:
+        "201":
+          description: response when success create fight and create room
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_12'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Fight
+  /player/stats:
+    get:
+      tags:
+      - Fight
+      - User
+      summary: Retrieve stats player
+      description: This endpoint to retrieve stats player
+      operationId: playerStatsGET
+      responses:
+        "200":
+          description: response when get player stats
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_9'
+        "400":
+          description: Response when something error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
+      x-swagger-router-controller: Fight
+components:
+  schemas:
+    getTokenSchema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Login success!
+        accessToken:
+          type: string
+          example: XXXXX
+        refreshToken:
+          type: string
+          example: XXXXX
+      example:
+        message: Login success!
+        accessToken: XXXXX
+        refreshToken: XXXXX
+    biodataEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Daffa Hanifisyafiq
+        phone:
+          type: string
+          example: +62 877-1234-9999
+        address:
+          type: string
+          example: Jalan Kenangan Gg. Rindu No. 28
+        avatar:
+          type: string
+          example: suwitgames.com/daffa404.png
+        bio:
+          type: string
+          example: miss someone far away
+    updateBiodataEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Daffa
+        phone:
+          type: string
+          example: +62 877-1234-1234
+        address:
+          type: string
+          example: Jalan Kenangan Gg. Rindu No. 28
+        avatar:
+          type: string
+          example: suwitgames.com/daffa404.png
+        bio:
+          type: string
+          example: miss someone far away
+    user1:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        username:
+          type: string
+          example: daffa404
+        email:
+          type: string
+          example: daffa@suwitgames.com
+        created_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        biodata:
+          $ref: '#/components/schemas/user1_biodata'
+      example:
+        updated_at: 28-10-2021 23:30 +07:00
+        biodata:
+          address: Jalan Kenangan Gg. Rindu No. 28
+          updated_at: 28-10-2021 23:30 +07:00
+          phone: +62 877-1234-9999
+          name: Daffa Hanifisyafiq
+          bio: miss someone far away
+          created_at: 28-10-2021 23:30 +07:00
+          id: 4eb527a7-db0e-42f9-9e57-21422a01619b
+          avatar: suwitgames.com/daffa404.png
+          userId: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        created_at: 28-10-2021 23:30 +07:00
+        id: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        email: daffa@suwitgames.com
+        username: daffa404
+    user2:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 655ae3b2-57d2-43fe-925f-914bb536f15f
+        username:
+          type: string
+          example: hildaharisa
+        email:
+          type: string
+          example: hilda@suwitgames.com
+        created_at:
+          type: string
+          example: 29-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 29-10-2021 23:30 +07:00
+        biodata:
+          $ref: '#/components/schemas/user2_biodata'
+    novice:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa1
+        level_name:
+          type: string
+          example: Novice
+        point_min:
+          type: integer
+          example: 0
+        point_max:
+          type: integer
+          example: 1199
+    class_d:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa2
+        level_name:
+          type: string
+          example: Class D
+        point_min:
+          type: integer
+          example: 1200
+        point_max:
+          type: integer
+          example: 1399
+    class_c:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa3
+        level_name:
+          type: string
+          example: Class C
+        point_min:
+          type: integer
+          example: 1400
+        point_max:
+          type: integer
+          example: 1599
+    class_b:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa4
+        level_name:
+          type: string
+          example: Class B
+        point_min:
+          type: integer
+          example: 1600
+        point_max:
+          type: integer
+          example: 1799
+    class_a:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa5
+        level_name:
+          type: string
+          example: Class A
+        point_min:
+          type: integer
+          example: 1800
+        point_max:
+          type: integer
+          example: 1999
+    candidate_master:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa6
+        level_name:
+          type: string
+          example: Candidate Master
+        point_min:
+          type: integer
+          example: 200
+        point_max:
+          type: integer
+          example: 2499
+    grand_master:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa7
+        level_name:
+          type: string
+          example: Grand Master
+        point_min:
+          type: integer
+          example: 2500
+        point_max:
+          type: integer
+          example: 99999999
+    admin:
+      type: object
+      properties:
+        roles:
+          type: object
+          example: admin
+    user:
+      type: object
+      properties:
+        roles:
+          type: object
+          example: user
+    roleSchema:
+      type: object
+      properties:
+        role_name:
+          type: string
+          example: User
+    createLevelSchemas:
+      type: object
+      properties:
+        level_name:
+          type: string
+          example: Diamond
+        point_min:
+          type: integer
+          example: 10000
+        point_max:
+          type: integer
+          example: 20000
+    inline_response_200:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_200_data'
+      example:
+        data:
+          message: Welcome to Suwit Games!
+        status: OK
+    inline_response_404:
+      type: object
+      properties:
+        status:
+          type: string
+          example: FAIL
+        data:
+          $ref: '#/components/schemas/inline_response_404_data'
+    inline_response_200_1:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/getTokenSchema'
+      example:
+        data:
+          message: Login success!
+          accessToken: XXXXX
+          refreshToken: XXXXX
+        status: OK
+    inline_response_400:
+      type: object
+      properties:
+        status:
+          type: string
+          example: FAIL
+        data:
+          $ref: '#/components/schemas/inline_response_400_data'
+    inline_response_201:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_data'
+      example:
+        data:
+          updated_at: 28-10-2021 23:30 +07:00
+          created_at: 28-10-2021 23:30 +07:00
+          message: Register success!
+          email: daffa@suwitgames.com
+          username: daffa404
+        status: OK
+    inline_response_400_1:
+      type: object
+      properties:
+        status:
+          type: string
+          example: FAIL
+        data:
+          $ref: '#/components/schemas/inline_response_400_1_data'
+    inline_response_200_2:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/inline_response_200_2_user'
+      example:
+        user:
+          updated_at: 28-10-2021 23:30 +07:00
+          biodata:
+            address: Jalan Kenangan Gg. Rindu No. 28
+            updated_at: 28-10-2021 23:30 +07:00
+            phone: +62 877-1234-9999
+            name: Daffa Hanifisyafiq
+            bio: miss someone far away
+            created_at: 28-10-2021 23:30 +07:00
+            id: 4eb527a7-db0e-42f9-9e57-21422a01619b
+            avatar: suwitgames.com/daffa404.png
+            userId: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+          created_at: 28-10-2021 23:30 +07:00
+          id: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+          email: daffa@suwitgames.com
+          username: daffa404
+    inline_response_201_1:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_1_data'
+      example:
+        data:
+          address: Jalan Kenangan Gg. Rindu No. 28
+          updated_at: 28-10-2021 23:30 +07:00
+          phone: +62 877-1234-1234
+          name: Daffa
+          bio: miss someone far away
+          created_at: 28-10-2021 23:30 +07:00
+          id: 4eb527a7-db0e-42f9-9e57-21422a01619b
+          avatar: suwitgames.com/daffa404.png
+        status: OK
+    inline_response_400_2:
+      type: object
+      properties:
+        status:
+          type: string
+          example: FAIL
+        data:
+          $ref: '#/components/schemas/inline_response_400_2_data'
+    inline_response_201_2:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_2_data'
+      example:
+        data:
+          address: Jalan Kenangan Gg. Rindu No. 28
+          updated_at: 28-10-2021 23:30 +07:00
+          phone: +62 877-1234-9999
+          name: Daffa Hanifisyafiq
+          bio: miss someone far away
+          created_at: 28-10-2021 23:30 +07:00
+          id: 4eb527a7-db0e-42f9-9e57-21422a01619b
+          avatar: suwitgames.com/daffa404.png
+        status: OK
+    inline_response_400_3:
+      type: object
+      properties:
+        status:
+          type: string
+          example: FAIL
+        data:
+          $ref: '#/components/schemas/inline_response_400_3_data'
+    inline_response_400_4:
+      type: object
+      properties:
+        status:
+          type: string
+          example: FAIL
+        data:
+          $ref: '#/components/schemas/inline_response_400_4_data'
+    inline_response_201_3:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_3_data'
+      example:
+        data:
+          message: Delete Success
+        status: OK
+    inline_response_400_5:
+      type: object
+      properties:
+        status:
+          type: string
+          example: FAIL
+        data:
+          $ref: '#/components/schemas/inline_response_400_5_data'
+    inline_response_200_3:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_200_3_data'
+      example:
+        data:
+          isWinner: daffa404
+          updated_at: 04-12-2021 00:01 +07:00
+          created_at: 01-12-2021 00:01 +07:00
+          id: 5380cc52-2508-4a7c-aba6-59046518c58b
+          played_at: 01-12-2021 00:01 +07:00
+          isActive: true
+          ended_at: 04-12-2021 00:01 +07:00
+          roundActive: "3"
+        status: OK
+    inline_response_201_4:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_4_data'
+      example:
+        data:
+          isWinner: daffa404
+          updated_at: 04-12-2021 00:01 +07:00
+          created_at: 01-12-2021 00:01 +07:00
+          played_at: 01-12-2021 00:01 +07:00
+          isActive: true
+          ended_at: 04-12-2021 00:01 +07:00
+          roundActive: "3"
+        status: OK
+    inline_response_200_4:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5380cc52-2508-4a7c-aba6-59046518c58b
+        room_created_at:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+        room_owner:
+          type: string
+          example: daffa404
+        room_status:
+          type: string
+          example: closed
+          enum:
+          - open
+          - closed
+        gameId:
+          type: string
+          example: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+        created_at:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+        updated:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+      example:
+        gameId: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+        room_owner: daffa404
+        created_at: 29-11-2021 00:01 +07:00
+        room_created_at: 29-11-2021 00:01 +07:00
+        id: 5380cc52-2508-4a7c-aba6-59046518c58b
+        updated: 29-11-2021 00:01 +07:00
+        room_status: closed
+    inline_response_201_5:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5380cc52-2508-4a7c-aba6-59046518c58b
+        room_created_at:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+        room_name:
+          type: string
+          example: comeOnFightMe
+        room_status:
+          type: string
+          example: open
+          enum:
+          - open
+          - closed
+        gameId:
+          type: string
+          example: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+        created_at:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+        updated:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+      example:
+        gameId: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+        room_name: comeOnFightMe
+        created_at: 29-11-2021 00:01 +07:00
+        room_created_at: 29-11-2021 00:01 +07:00
+        id: 5380cc52-2508-4a7c-aba6-59046518c58b
+        updated: 29-11-2021 00:01 +07:00
+        room_status: open
+    inline_response_201_6:
+      type: object
+      properties:
+        room_name:
+          type: string
+          example: comeOnFightMeBro
+        room_status:
+          type: string
+          example: open
+          enum:
+          - open
+          - closed
+        gameId:
+          type: string
+          example: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+      example:
+        gameId: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+        room_name: comeOnFightMeBro
+        room_status: open
+    inline_response_200_5:
+      type: object
+      properties:
+        round_created:
+          type: string
+          example: 01-12-2021 01:01 +07:00
+        round_ended:
+          type: string
+          example: 01-12-2021 01:10 +07:00
+        round_winner:
+          type: string
+          example: hildaharisa
+        optionP1:
+          type: string
+          example: gunting
+          enum:
+          - gunting
+          - batu
+          - kertas
+        optionP2:
+          type: string
+          example: batu
+          enum:
+          - gunting
+          - batu
+          - kertas
+        created_at:
+          type: string
+          example: 01-12-2021 01:01 +07:00
+        updated_at:
+          type: string
+          example: 01-12-2021 01:10 +07:00
+      example:
+        updated_at: 01-12-2021 01:10 +07:00
+        created_at: 01-12-2021 01:01 +07:00
+        round_created: 01-12-2021 01:01 +07:00
+        round_ended: 01-12-2021 01:10 +07:00
+        optionP1: gunting
+        optionP2: batu
+        round_winner: hildaharisa
+    inline_response_200_6:
+      type: object
+      properties:
+        round_created:
+          type: string
+          example: 01-12-2021 01:01 +07:00
+        round_winner:
+          type: string
+          example: hildaharisa
+        optionP1:
+          type: string
+          example: gunting
+          enum:
+          - gunting
+          - batu
+          - kertas
+        optionP2:
+          type: string
+          example: batu
+          enum:
+          - gunting
+          - batu
+          - kertas
+        created_at:
+          type: string
+          example: 01-12-2021 01:01 +07:00
+        updated_at:
+          type: string
+          example: 01-12-2021 01:10 +07:00
+      example:
+        updated_at: 01-12-2021 01:10 +07:00
+        created_at: 01-12-2021 01:01 +07:00
+        round_created: 01-12-2021 01:01 +07:00
+        optionP1: gunting
+        optionP2: batu
+        round_winner: hildaharisa
+    inline_response_200_7:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 9e9b2096-2446-423b-8e1e-9564253f1d0b
+        point:
+          minimum: 0
+          type: integer
+          example: 2500
+        level:
+          type: string
+          example: Grand Master
+          enum:
+          - Novice
+          - Class D
+          - Class C
+          - Class B
+          - Class A
+          - Candidate Master
+          - Grand Master
+        win_rate:
+          type: number
+          format: float
+          example: 86.88
+        userId:
+          type: string
+          example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+      example:
+        level: Grand Master
+        id: 9e9b2096-2446-423b-8e1e-9564253f1d0b
+        win_rate: 86.88
+        userId: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        point: 2500
+    inline_response_201_7:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_7_data'
+      example:
+        data:
+          level: Grand Master
+          message: success create stats
+          win_rate: 89.63
+          point: 300
+        status: OK
+    inline_response_201_8:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_8_data'
+      example:
+        data:
+          message: Diamond level successfully created!
+        status: OK
+    inline_response_201_9:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_9_data'
+      example:
+        data:
+          message: Diamond level successfully updated!
+        status: OK
+    inline_response_201_10:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_10_data'
+      example:
+        data:
+          message: USER role successfully created!
+        status: OK
+    inline_response_201_11:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_201_11_data'
+      example:
+        data:
+          message: USER role successfully updated!
+        status: OK
+    inline_response_200_8:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        data:
+          $ref: '#/components/schemas/inline_response_200_8_data'
+      example:
+        data:
+          level: Grand Master
+          point: 3500
+          username: daffa404
+        status: OK
+    inline_response_404_1:
+      type: object
+      properties:
+        status:
+          type: string
+          example: FAIL
+        data:
+          $ref: '#/components/schemas/inline_response_404_1_data'
+    inline_response_201_12:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5380cc52-2508-4a7c-aba6-59046518c58b
+        room_created_at:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+        room_owner:
+          type: string
+          example: daffa404
+        room_status:
+          type: string
+          example: open
+          enum:
+          - open
+          - closed
+        room_name:
+          type: string
+          example: comeOnFightMe
+        gameId:
+          type: string
+          example: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+        created_at:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+        updated:
+          type: string
+          example: 29-11-2021 00:01 +07:00
+      example:
+        gameId: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+        room_name: comeOnFightMe
+        room_owner: daffa404
+        created_at: 29-11-2021 00:01 +07:00
+        room_created_at: 29-11-2021 00:01 +07:00
+        id: 5380cc52-2508-4a7c-aba6-59046518c58b
+        updated: 29-11-2021 00:01 +07:00
+        room_status: open
+    inline_response_200_9:
+      type: object
+      properties:
+        userId:
+          type: string
+          example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        levelId:
+          type: string
+          example: 9e9b2096-2446-423b-8e1e-9564253f1d0b
+        point:
+          type: integer
+          example: 3500
+      example:
+        levelId: 9e9b2096-2446-423b-8e1e-9564253f1d0b
+        userId: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        point: 3500
+    user1_biodata:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4eb527a7-db0e-42f9-9e57-21422a01619b
+        name:
+          type: string
+          example: Daffa Hanifisyafiq
+        phone:
+          type: string
+          example: +62 877-1234-9999
+        address:
+          type: string
+          example: Jalan Kenangan Gg. Rindu No. 28
+        avatar:
+          type: string
+          example: suwitgames.com/daffa404.png
+        bio:
+          type: string
+          example: miss someone far away
+        created_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        userId:
+          type: string
+          example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+      example:
+        address: Jalan Kenangan Gg. Rindu No. 28
+        updated_at: 28-10-2021 23:30 +07:00
+        phone: +62 877-1234-9999
+        name: Daffa Hanifisyafiq
+        bio: miss someone far away
+        created_at: 28-10-2021 23:30 +07:00
+        id: 4eb527a7-db0e-42f9-9e57-21422a01619b
+        avatar: suwitgames.com/daffa404.png
+        userId: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+    user2_biodata:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 3852784d-335a-4e84-87d2-e0d1db28e103
+        name:
+          type: string
+          example: Hilda Harisa
+        phone:
+          type: string
+          example: +62 877-1515-9999
+        address:
+          type: string
+          example: Jalan Yuk No.28
+        avatar:
+          type: string
+          example: suwitgames.com/hildaharisa.png
+        bio:
+          type: string
+          example: beautiful girl
+        created_at:
+          type: string
+          example: 29-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 29-10-2021 23:30 +07:00
+        userId:
+          type: string
+          example: 655ae3b2-57d2-43fe-925f-914bb536f15f
+    inline_response_200_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Welcome to Suwit Games!
+      example:
+        message: Welcome to Suwit Games!
+    inline_response_404_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Something error
+    inline_response_400_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Invalid username or password!
+    inline_response_201_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Register success!
+        username:
+          type: string
+          example: daffa404
+        email:
+          type: string
+          example: daffa@suwitgames.com
+        created_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+      example:
+        updated_at: 28-10-2021 23:30 +07:00
+        created_at: 28-10-2021 23:30 +07:00
+        message: Register success!
+        email: daffa@suwitgames.com
+        username: daffa404
+    inline_response_400_1_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Register failed please check field correctly!
+    inline_response_200_2_user:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        username:
+          type: string
+          example: daffa404
+        email:
+          type: string
+          example: daffa@suwitgames.com
+        created_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        biodata:
+          $ref: '#/components/schemas/user1_biodata'
+      example:
+        updated_at: 28-10-2021 23:30 +07:00
+        biodata:
+          address: Jalan Kenangan Gg. Rindu No. 28
+          updated_at: 28-10-2021 23:30 +07:00
+          phone: +62 877-1234-9999
+          name: Daffa Hanifisyafiq
+          bio: miss someone far away
+          created_at: 28-10-2021 23:30 +07:00
+          id: 4eb527a7-db0e-42f9-9e57-21422a01619b
+          avatar: suwitgames.com/daffa404.png
+          userId: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        created_at: 28-10-2021 23:30 +07:00
+        id: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        email: daffa@suwitgames.com
+        username: daffa404
+    inline_response_201_1_data:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4eb527a7-db0e-42f9-9e57-21422a01619b
+        name:
+          type: string
+          example: Daffa
+        phone:
+          type: string
+          example: +62 877-1234-1234
+        address:
+          type: string
+          example: Jalan Kenangan Gg. Rindu No. 28
+        avatar:
+          type: string
+          example: suwitgames.com/daffa404.png
+        bio:
+          type: string
+          example: miss someone far away
+        created_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+      example:
+        address: Jalan Kenangan Gg. Rindu No. 28
+        updated_at: 28-10-2021 23:30 +07:00
+        phone: +62 877-1234-1234
+        name: Daffa
+        bio: miss someone far away
+        created_at: 28-10-2021 23:30 +07:00
+        id: 4eb527a7-db0e-42f9-9e57-21422a01619b
+        avatar: suwitgames.com/daffa404.png
+    inline_response_400_2_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Update biodata failed, please fill field correctly"
+    inline_response_201_2_data:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 4eb527a7-db0e-42f9-9e57-21422a01619b
+        name:
+          type: string
+          example: Daffa Hanifisyafiq
+        phone:
+          type: string
+          example: +62 877-1234-9999
+        address:
+          type: string
+          example: Jalan Kenangan Gg. Rindu No. 28
+        avatar:
+          type: string
+          example: suwitgames.com/daffa404.png
+        bio:
+          type: string
+          example: miss someone far away
+        created_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+      example:
+        address: Jalan Kenangan Gg. Rindu No. 28
+        updated_at: 28-10-2021 23:30 +07:00
+        phone: +62 877-1234-9999
+        name: Daffa Hanifisyafiq
+        bio: miss someone far away
+        created_at: 28-10-2021 23:30 +07:00
+        id: 4eb527a7-db0e-42f9-9e57-21422a01619b
+        avatar: suwitgames.com/daffa404.png
+    inline_response_400_3_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Create biodata failed, please fill field correctly"
+    inline_response_400_4_data:
+      type: object
+      properties:
+        data:
+          type: string
+          example: User id not found
+    inline_response_201_3_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Delete Success
+      example:
+        message: Delete Success
+    inline_response_400_5_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Delete failed, something went wrong!"
+    inline_response_200_3_data:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5380cc52-2508-4a7c-aba6-59046518c58b
+        played_at:
+          type: string
+          example: 01-12-2021 00:01 +07:00
+        ended_at:
+          type: string
+          example: 04-12-2021 00:01 +07:00
+        isActive:
+          type: boolean
+          example: true
+        isWinner:
+          type: string
+          example: daffa404
+        roundActive:
+          type: string
+          example: "3"
+        created_at:
+          type: string
+          example: 01-12-2021 00:01 +07:00
+        updated_at:
+          type: string
+          example: 04-12-2021 00:01 +07:00
+      example:
+        isWinner: daffa404
+        updated_at: 04-12-2021 00:01 +07:00
+        created_at: 01-12-2021 00:01 +07:00
+        id: 5380cc52-2508-4a7c-aba6-59046518c58b
+        played_at: 01-12-2021 00:01 +07:00
+        isActive: true
+        ended_at: 04-12-2021 00:01 +07:00
+        roundActive: "3"
+    inline_response_201_4_data:
+      type: object
+      properties:
+        played_at:
+          type: string
+          example: 01-12-2021 00:01 +07:00
+        ended_at:
+          type: string
+          example: 04-12-2021 00:01 +07:00
+        isActive:
+          type: boolean
+          example: true
+        isWinner:
+          type: string
+          example: daffa404
+        roundActive:
+          type: string
+          example: "3"
+        created_at:
+          type: string
+          example: 01-12-2021 00:01 +07:00
+        updated_at:
+          type: string
+          example: 04-12-2021 00:01 +07:00
+      example:
+        isWinner: daffa404
+        updated_at: 04-12-2021 00:01 +07:00
+        created_at: 01-12-2021 00:01 +07:00
+        played_at: 01-12-2021 00:01 +07:00
+        isActive: true
+        ended_at: 04-12-2021 00:01 +07:00
+        roundActive: "3"
+    inline_response_201_7_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: success create stats
+        point:
+          type: integer
+          example: 300
+        level:
+          type: string
+          example: Grand Master
+        win_rate:
+          type: number
+          example: 89.63
+      example:
+        level: Grand Master
+        message: success create stats
+        win_rate: 89.63
+        point: 300
+    inline_response_201_8_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Diamond level successfully created!
+      example:
+        message: Diamond level successfully created!
+    inline_response_201_9_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Diamond level successfully updated!
+      example:
+        message: Diamond level successfully updated!
+    inline_response_201_10_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: USER role successfully created!
+      example:
+        message: USER role successfully created!
+    inline_response_201_11_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: USER role successfully updated!
+      example:
+        message: USER role successfully updated!
+    inline_response_200_8_data:
+      type: object
+      properties:
+        username:
+          type: string
+          example: daffa404
+        level:
+          type: string
+          example: Grand Master
+        point:
+          type: integer
+          example: 3500
+      example:
+        level: Grand Master
+        point: 3500
+        username: daffa404
+    inline_response_404_1_data:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Player not found
+  responses:
+    deleteSuccess:
+      description: Response when delete success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_3'
+    errorResponse:
+      description: Response when something error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_404'
+    home:
+      description: responses when user accessed home page
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200'
+    isLoginSuccess:
+      description: response if user login with correct credential.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_1'
+    isLoginFailed:
+      description: response when the user login with invalid credential.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+    isRegisterSuccess:
+      description: response when the user successfully registers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+    isRegisterFailed:
+      description: response when the user successfully registers.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400_1'
+    showProfile:
+      description: response details of user who logged in
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_2'
+    isCreateBiodataSuccess:
+      description: response create biodata of user who logged in
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_2'
+    isCreateBiodataFailed:
+      description: response when invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400_3'
+    isUpdateBiodataSuccess:
+      description: response update biodata of user who logged in
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_1'
+    isUpdateBiodataFailed:
+      description: response when invalid request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400_2'
+    getAllUsers:
+      description: Fetch all user who have been registered
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              anyOf:
+              - $ref: '#/components/schemas/user1'
+              - $ref: '#/components/schemas/user2'
+            x-content-type: application/json
+    getUserById:
+      description: Fetch user by id who have been registered
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/user1'
+    getUserByIdNotFound:
+      description: Response when user Id not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400_4'
+    isDeleteUserSuccess:
+      description: Response is delete success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_3'
+    isDeleteUserFailed:
+      description: Response is delete success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400_5'
+    getGames:
+      description: Response for /games endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_3'
+    successCreateGames:
+      description: Response for create gamescontent
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_4'
+    getRoom:
+      description: Response for /room endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_4'
+    successCreateRoom:
+      description: Response for /room endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_5'
+    editCreateRoom:
+      description: Response for /room endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_6'
+    successCreateRound:
+      description: Response for /round endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_6'
+    getRound:
+      description: Response for /round endpoint
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_5'
+    getStats:
+      description: Response for /stats endpoints
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_7'
+    successCreateStats:
+      description: Response for /level endpoints
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_7'
+    getLevel:
+      description: Response for /level endpoints
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              anyOf:
+              - $ref: '#/components/schemas/novice'
+              - $ref: '#/components/schemas/class_d'
+              - $ref: '#/components/schemas/class_c'
+              - $ref: '#/components/schemas/class_b'
+              - $ref: '#/components/schemas/class_a'
+              - $ref: '#/components/schemas/candidate_master'
+              - $ref: '#/components/schemas/grand_master'
+            x-content-type: application/json
+    getRoles:
+      description: Response for /roles endpoints
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              anyOf:
+              - $ref: '#/components/schemas/admin'
+              - $ref: '#/components/schemas/user'
+            x-content-type: application/json
+    successCreateRole:
+      description: Response for success creating role
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_10'
+    successEditRole:
+      description: Response for success updating role
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_11'
+    successCreateLevel:
+      description: Response for success creating role
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_8'
+    successEditLevel:
+      description: Response for success creating role
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_9'
+    getPlayerByPointAndLevel:
+      description: response for search player by point and level
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_8'
+    getPlayerByPointAndLevelNotFound:
+      description: response for search player by point and level
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_404_1'
+    successCreateFightRoom:
+      description: response when success create fight and create room
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201_12'
+    getPlayerStats:
+      description: response when get player stats
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_200_9'
+  requestBodies:
+    createRound:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              round_winner:
+                type: string
+                example: hildaharisa
+              optionP1:
+                type: string
+                example: gunting
+              optionP2:
+                type: string
+                example: batu
+      required: true
+    createStats:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              point:
+                type: integer
+                example: 300
+              level:
+                type: string
+                example: Grand Master
+              win_rate:
+                type: number
+                example: 89.63
+      required: true
+    createRoom:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: comeOnFightMe
+              status:
+                type: string
+                default: open
+                enum:
+                - open
+                - closed
+      required: true
+    editRoom:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: comeOnFightMeBro
+              status:
+                type: string
+                example: open
+                enum:
+                - open
+                - closed
+      required: true
+    userLogin:
+      content:
+        application/json:
+          schema:
+            required:
+            - password
+            - username
+            type: object
+            properties:
+              username:
+                type: string
+                example: daffa404
+              password:
+                type: string
+                example: thisIsNotPassword
+      required: true
+    userRegister:
+      content:
+        application/json:
+          schema:
+            required:
+            - email
+            - password
+            - repeatPassword
+            - username
+            type: object
+            properties:
+              username:
+                type: string
+                example: daffa404
+              email:
+                type: string
+                example: daffa@suwitgames.com
+              password:
+                type: string
+                example: thisIsNotPassword
+              repeatPassword:
+                type: string
+                example: thisIsNotPassword
+      required: true
+    createBiodata:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/biodataEntity'
+      required: true
+    updateBiodata:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/updateBiodataEntity'
+      required: true
+    editBiodata:
+      content:
+        application/json:
+          schema:
+            required:
+            - address
+            - avatar
+            - bio
+            - name
+            - phone
+            type: object
+            properties:
+              name:
+                type: string
+                example: Daffa
+              phone:
+                type: string
+                example: +62 877-1234-1234
+              address:
+                type: string
+                example: Jalan Kenangan Gg. Rindu No. 28
+              avatar:
+                type: string
+                example: suwitgames.com/daffa404.png
+              bio:
+                type: string
+                example: miss someone far away
+      required: true
+    createRole:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/roleSchema'
+      required: true
+    createLevel:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createLevelSchemas'
+      required: true
+    fightPlayer:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              room_name:
+                type: string
+                example: comeOnFightMe
+      required: true

@@ -1,0 +1,15 @@
+.badge-rank {
+  font-size: 50px;
+}
+.bg-rank-bronze {
+  background-color: #c36a2d;
+}
+.bg-rank-silver {
+  background-color: #787a91;
+}
+.bg-rank-gold {
+  background-color: #f0c929;
+}
+.nav-link-menu {
+  font-weight: 500;
+}

@@ -1,0 +1,136 @@
+<div class="row my-5">
+  <div class="col-2"></div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header">
+        <a href="/users" class="btn btn-md btn-secondary"><i
+            class="fas fa-chevron-left"
+          ></i></a>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <img
+            src="/img/profile.png"
+            class="rounded-circle mx-auto d-block"
+            width="150"
+          />
+        </div>
+        <div class="row d-flex justify-content-center my-2">
+          <strong>
+            {{data.username}}
+          </strong>
+        </div>
+        <div class="row d-flex justify-content-center">
+          {{#ifEquals data.rank "Bronze"}}
+            <h4>
+              <span
+                class="badge badge-pill bg-rank-bronze text-white badge-rank"
+              >{{data.rank}}</span>
+            </h4>
+          {{/ifEquals}}
+          {{#ifEquals data.rank "Silver"}}
+            <h4>
+              <span
+                class="badge badge-pill bg-rank-silver text-white badge-rank"
+              >{{data.rank}}</span>
+            </h4>
+          {{/ifEquals}}
+          {{#ifEquals data.rank "Gold"}}
+            <h4>
+              <span
+                class="badge badge-pill bg-rank-gold text-white badge-rank"
+              >{{data.rank}}</span>
+            </h4>
+          {{/ifEquals}}
+        </div>
+        <ol class="list-group list-group-numbered my-3">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <h5>
+                <strong>
+                  Name
+                </strong>
+              </h5>
+              {{data.biodata.name}}
+            </div>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <h5>
+                <strong>
+                  Email
+                </strong>
+              </h5>
+              {{data.biodata.email}}
+            </div>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <h5>
+                <strong>
+                  Gender
+                </strong>
+              </h5>
+              {{data.biodata.gender}}
+            </div>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <h5>
+                <strong>
+                  Birthdate
+                </strong>
+              </h5>
+              {{data.biodata.birthdate}}
+            </div>
+          </li>
+          <li
+            class="list-group-item d-flex justify-content-between align-items-start"
+          >
+            <div class="ms-2 me-auto">
+              <h5>
+                <strong>
+                  Address
+                </strong>
+              </h5>
+              {{data.biodata.address}}
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="card">
+      <div class="card-header">
+        Game rooms joined
+      </div>
+      <div class="card-body">
+        <div class="row d-flex justify-content-center my-2">
+          <div class="list-group w-100">
+            {{#each games}}
+              <div href="#" class="list-group-item list-group-item-action">
+                {{incremented @index}}.
+                <strong>
+                  {{room}}
+                </strong>
+                :
+                {{history}}
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3"></div>
+</div>

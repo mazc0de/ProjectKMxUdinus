@@ -1,0 +1,37 @@
+[{
+        "id": 1,
+        "username": "daffa",
+        "password": "daffa123",
+        "firsName": "Daffa",
+        "lastName": "Hanifisyafiq",
+        "email": "daffa@gmail.com",
+        "ages": 21,
+        "address": {
+            "houseNumber": 69,
+            "street": "Sudirman St.",
+            "subDistrict": "Petarukan",
+            "regency": "Pemalang",
+            "province": "Central Java",
+            "postalCode": 52362,
+            "country": "Indonesia"
+        }
+    },
+    {
+        "id": 2,
+        "username": "david",
+        "password": "david123",
+        "firsName": "David",
+        "lastName": "Gates",
+        "email": "david@gmail.com",
+        "ages": 21,
+        "address": {
+            "houseNumber": 69,
+            "street": "Imam Bonjol St.",
+            "subDistrict": "Bulustalan",
+            "regency": "South Semarang",
+            "province": "Central Java",
+            "postalCode": 50246,
+            "country": "Indonesia"
+        }
+    }
+]

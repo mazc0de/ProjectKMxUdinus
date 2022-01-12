@@ -1,0 +1,417 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+
+/* Navbar */
+
+.navbar {
+    padding-top: 2rem;
+}
+
+.bg-nav {
+    background-color: #9c835f;
+}
+
+.title-nav {
+    font-family: "Open Sans";
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #f9b23d;
+    transition: 0.5s;
+}
+
+.title-nav:hover {
+    transition: 0.5s;
+    text-shadow: 0px 0px 5px #ff9d00;
+}
+
+.img-logo {
+    transition: 0.5s;
+}
+
+.img-logo:hover {
+    transition: 0.5s;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px #ff9d00;
+}
+
+.main-section {
+    background-color: #9c835f;
+    font-family: "Open Sans" !important;
+    padding-top: 6rem;
+}
+
+.text-player {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-family: "Open Sans";
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.ripple {
+    background-position: center;
+    transition: background 0.8s;
+}
+
+.ripple:hover {
+    background: #c4c4c4 radial-gradient(circle, transparent 1%, #9c835f 1%) center/15000%;
+}
+
+.ripple:active {
+    background-color: #9c835f;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+
+/* Batu Player */
+
+.batu-player {
+    cursor: pointer;
+    width: 80%;
+    padding: 10px;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.batu-player:hover {
+    transition: 0.5s;
+    border-radius: 25px;
+    background: #c4c4c4 radial-gradient(circle, transparent 1%, #b9b9b9 1%) center/15000%;
+}
+
+.batu-player:active {
+    background-color: #9c835f;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+
+/* Batu Computer */
+
+.batu-computer {
+    width: 80%;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+
+/* Kertas Player*/
+
+.kertas-player {
+    cursor: pointer;
+    width: 80%;
+    padding: 10px;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.kertas-player:hover {
+    transition: 0.5s;
+    border-radius: 25px;
+    background: #c4c4c4 radial-gradient(circle, transparent 1%, #b9b9b9 1%) center/15000%;
+}
+
+.kertas-player:active {
+    background-color: #9c835f;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+
+/* Kertas Computer */
+
+.kertas-computer {
+    width: 80%;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+
+/* Gunting Player */
+
+.gunting-player {
+    cursor: pointer;
+    width: 80%;
+    padding: 10px;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.gunting-player:hover {
+    transition: 0.5s;
+    border-radius: 25px;
+    background: #c4c4c4 radial-gradient(circle, transparent 1%, #b9b9b9 1%) center/15000%;
+}
+
+.gunting-player:active {
+    background-color: #9c835f;
+    background-size: 100%;
+    transition: background 0s;
+}
+
+
+/* Gunting Computer */
+
+.gunting-computer {
+    width: 80%;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+.box-active {
+    padding: 10px;
+    border-radius: 25px;
+    background: #c4c4c4;
+}
+
+.text-vs {
+    color: #bd0000;
+    font-family: "Open Sans";
+    font-weight: 700;
+    font-size: 2.5rem;
+    /* display: none; */
+}
+
+.btn-refresh {
+    cursor: pointer;
+    width: 10%;
+    transition: 0.5s;
+}
+
+.btn-refresh:hover {
+    padding: 1rem;
+    transition: 0.5s;
+    border-radius: 25px;
+    background: #c4c4c4;
+}
+
+.btn-refresh:active {
+    cursor: wait;
+}
+
+.result-box-player-win {
+    width: 110px;
+    height: 60px;
+    background: #80ed99;
+    border-radius: 15px;
+    transform: rotate(-30deg);
+    color: #000;
+    font-family: "Open Sans";
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.result-box-com-win {
+    width: 110px;
+    height: 60px;
+    background: #ff6b6b;
+    border-radius: 15px;
+    transform: rotate(-30deg);
+    color: #000;
+    font-family: "Open Sans";
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.result-box-draw {
+    width: 110px;
+    height: 60px;
+    background: #3db2ff;
+    border-radius: 15px;
+    transform: rotate(-30deg);
+    color: #000;
+    font-family: "Open Sans";
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.result-text {
+    color: #000;
+    font-family: "Open Sans";
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.text-ask {
+    visibility: hidden;
+    font-family: consolas, "Courier New", monospace;
+    font-size: 1rem;
+}
+
+@media screen and (min-width: 576px) {
+    /* Batu Player */
+    .batu-player {
+        width: 60%;
+    }
+    /* Batu Computer */
+    .batu-computer {
+        width: 60%;
+    }
+    /* Kertas Player*/
+    .kertas-player {
+        width: 60%;
+    }
+    /* Kertas Computer */
+    .kertas-computer {
+        width: 60%;
+    }
+    /* Gunting Player */
+    .gunting-player {
+        width: 60%;
+    }
+    /* Gunting Computer */
+    .gunting-computer {
+        width: 60%;
+    }
+    .img-back {
+        width: 10%;
+    }
+    .text-vs {
+        color: #bd0000;
+        font-family: "Open Sans";
+        font-weight: 700;
+        font-size: 3rem;
+        /* display: none; */
+    }
+    .result-box-player-win {
+        width: 160px;
+        height: 100px;
+        font-size: 1.5rem;
+    }
+    .result-box-com-win {
+        width: 160px;
+        height: 100px;
+        font-size: 1.5rem;
+    }
+    .result-box-draw {
+        width: 160px;
+        height: 100px;
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .title-nav {
+        font-family: "Open Sans";
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: #f9b23d;
+        transition: 0.5s;
+    }
+    .img-back {
+        width: 20%;
+    }
+    .img-logo {
+        width: 20%;
+    }
+    .text-vs {
+        color: #bd0000;
+        font-family: "Open Sans";
+        font-weight: 700;
+        font-size: 5rem;
+        /* display: none; */
+    }
+    .result-box-player-win {
+        width: 200px;
+        height: 100px;
+        font-size: 2rem;
+    }
+    .result-box-com-win {
+        width: 200px;
+        height: 100px;
+        font-size: 2rem;
+    }
+    .result-box-draw {
+        width: 200px;
+        height: 100px;
+        font-size: 2rem;
+    }
+    .text-ask {
+        font-size: 1.5rem;
+    }
+    .text-vs {
+        font-size: 5rem;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .text-player {
+        font-size: 3rem;
+    }
+    .img-back {
+        width: 50%;
+    }
+    .img-logo {
+        width: 50%;
+    }
+    .result-box-player-win {
+        width: 220px;
+        height: 120px;
+        font-size: 2rem;
+    }
+    .result-box-com-win {
+        width: 220px;
+        height: 120px;
+        font-size: 2rem;
+    }
+    .result-box-draw {
+        width: 220px;
+        height: 120px;
+        font-size: 2rem;
+    }
+    .text-ask {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    /* Batu Player */
+    .batu-player {
+        width: 30%;
+    }
+    /* Batu Computer */
+    .batu-computer {
+        width: 30%;
+    }
+    /* Kertas Player*/
+    .kertas-player {
+        width: 30%;
+    }
+    /* Kertas Computer */
+    .kertas-computer {
+        width: 30%;
+    }
+    /* Gunting Player */
+    .gunting-player {
+        width: 30%;
+    }
+    /* Gunting Computer */
+    .gunting-computer {
+        width: 30%;
+    }
+    .result-box-player-win {
+        width: 200px;
+        height: 100px;
+        font-size: 2rem;
+    }
+    .result-box-com-win {
+        width: 200px;
+        height: 100px;
+        font-size: 2rem;
+    }
+    .result-box-draw {
+        width: 200px;
+        height: 100px;
+        font-size: 2rem;
+    }
+}

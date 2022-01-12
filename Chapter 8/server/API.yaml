@@ -1,0 +1,1773 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: "RESTful API Suwit Games"
+  description: "This RESTful API is being used to manage the suwit games"
+servers:
+  - url: /
+    description: "Mock Server for Suwit Games"
+tags:
+  - name: Home
+    description: Containts various pages.
+  - name: User & Auth
+    description: Containts login and register user endpoints.
+  - name: User
+    description: Containts information about user
+  - name: Admin
+    description: Containts admin operation
+  - name: Game
+    description: Containts game information
+  - name: Biodata
+    description: Containts biodata user
+  - name: Room
+    description: Containts room information
+  - name: Round
+    description: Containts round information
+  - name: Stats
+    description: Containts stats information
+  - name: Level
+    description: Containts level information
+  - name: Roles
+    description: Containts roles information
+  - name: Fight
+    description: Containts fight user
+
+paths:
+  /:
+    get:
+      summary: Landing Page Home
+      description: endpoint to display the front page.
+      tags:
+        - Home
+      responses:
+        "200":
+          $ref: "#/components/responses/home"
+        404:
+          $ref: "#/components/responses/errorResponse"
+
+  /v1/login:
+    post:
+      summary: Retieve access token user
+      description: This endpoint to retrieve the access token when user logged in with correct credential.
+      operationId: userLogin
+      tags:
+        - User & Auth
+      requestBody:
+        $ref: "#/components/requestBodies/userLogin"
+      responses:
+        200:
+          $ref: "#/components/responses/isLoginSuccess"
+        400:
+          $ref: "#/components/responses/isLoginFailed"
+  /v1/register:
+    post:
+      summary: Register new user
+      description: This endpoint is used to register new users.
+      operationId: userRegister
+      tags:
+        - User & Auth
+      requestBody:
+        $ref: "#/components/requestBodies/userRegister"
+      responses:
+        201:
+          $ref: "#/components/responses/isRegisterSuccess"
+        400:
+          $ref: "#/components/responses/isRegisterFailed"
+
+  /v1/profile:
+    get:
+      summary: Retrieve user profile
+      description: This endpoint to get the user profile who logged in
+      operationId: getUser
+      tags:
+        - User
+        - Biodata
+      responses:
+        200:
+          $ref: "#/components/responses/showProfile"
+        404:
+          $ref: "#/components/responses/errorResponse"
+    post:
+      summary: Create biodata
+      description: This endpoint to create biodata for user who logged in
+      operationId: createBiodata
+      tags:
+        - User
+        - Biodata
+      requestBody:
+        $ref: "#/components/requestBodies/createBiodata"
+      responses:
+        201:
+          $ref: "#/components/responses/isCreateBiodataSuccess"
+        400:
+          $ref: "#/components/responses/isCreateBiodataFailed"
+    put:
+      summary: Update biodata
+      description: This endpoint to update biodata for user who logged in
+      operationId: updateBiodata
+      tags:
+        - User
+        - Biodata
+      requestBody:
+        $ref: "#/components/requestBodies/updateBiodata"
+      responses:
+        201:
+          $ref: "#/components/responses/isUpdateBiodataSuccess"
+        400:
+          $ref: "#/components/responses/isUpdateBiodataFailed"
+
+  /v1/admin/users:
+    get:
+      summary: Retrieve all users
+      description: This endpoint to retrive all user who registered on suwitgames.com
+      operationId: getAllUsers
+      tags:
+        - Admin
+      responses:
+        200:
+          $ref: "#/components/responses/getAllUsers"
+        404:
+          $ref: "#/components/responses/errorResponse"
+  /v1/admin/users/{userId}:
+    get:
+      summary: Retrieve user by id
+      description: This endpoint to retrive one user by id who registered on suwitgames.com
+      operationId: getUserById
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Id of user to return
+
+      responses:
+        200:
+          $ref: "#/components/responses/getUserById"
+        400:
+          $ref: "#/components/responses/getUserByIdNotFound"
+    put:
+      summary: Update user biodata by id
+      description: This endpoint to update biodata user who have been registered by id
+      operationId: updateBiodataById
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Id of user to return
+      requestBody:
+        $ref: "#/components/requestBodies/updateBiodata"
+      responses:
+        201:
+          $ref: "#/components/responses/isUpdateBiodataSuccess"
+        400:
+          $ref: "#/components/responses/isUpdateBiodataFailed"
+    delete:
+      summary: Delete user by id
+      description: This endpoint to delete user include biodata who have been registered by id
+      operationId: deleteUserById
+      tags:
+        - Admin
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Id of user to return
+      responses:
+        201:
+          $ref: "#/components/responses/isDeleteUserSuccess"
+        400:
+          $ref: "#/components/responses/isDeleteUserFailed"
+
+  /v1/games:
+    get:
+      summary: Retrieve information game
+      description: This endpoint to retrieve all games information
+      operationId: getGames
+      tags:
+        - Game
+      responses:
+        200:
+          $ref: "#/components/responses/getGames"
+        400:
+          $ref: "#/components/responses/errorResponse"
+    post:
+      summary: Create Games
+      description: This endpoint to create games
+      operationId: createGames
+      tags:
+        - Game
+      responses:
+        201:
+          $ref: "#/components/responses/successCreateGames"
+        400:
+          $ref: "#/components/responses/errorResponse"
+
+  /v1/room:
+    get:
+      summary: Retrive information game room
+      description: This endpoint to retrieve all information about room in this game
+      operationId: getRoom
+      tags:
+        - Room
+      responses:
+        200:
+          $ref: "#/components/responses/getRoom"
+        400:
+          $ref: "#/components/responses/errorResponse"
+    post:
+      summary: Create Room
+      description: This endpoint to create room in this game
+      operationId: createRoom
+      tags:
+        - Room
+      requestBody:
+        $ref: "#/components/requestBodies/createRoom"
+      responses:
+        201:
+          $ref: "#/components/responses/successCreateRoom"
+        400:
+          $ref: "#/components/responses/errorResponse"
+  /v1/room/{roomId}:
+    put:
+      summary: Create Room
+      description: This endpoint to create room in this game
+      operationId: createRoom
+      tags:
+        - Room
+      parameters:
+        - in: path
+          name: roomId
+          schema:
+            type: string
+          required: true
+          description: Id room
+      requestBody:
+        $ref: "#/components/requestBodies/editRoom"
+      responses:
+        201:
+          $ref: "#/components/responses/editCreateRoom"
+        400:
+          $ref: "#/components/responses/errorResponse"
+    delete:
+      summary: Delete Room
+      parameters:
+        - in: path
+          name: roomId
+          schema:
+            type: string
+          required: true
+          description: Id room
+      operationId: deleteRoom
+      tags:
+        - Room
+      responses:
+        201:
+          $ref: "#/components/responses/deleteSuccess"
+        400:
+          $ref: "#/components/responses/errorResponse"
+
+  /v1/round:
+    get:
+      summary: Retrieve round game information
+      description: This endpoint to retrieve all information about round in game
+      operationId: getRound
+      tags:
+        - Round
+      responses:
+        200:
+          $ref: "#/components/responses/getRound"
+        404:
+          $ref: "#/components/responses/errorResponse"
+    post:
+      summary: Create round
+      description: This endpoint to create round in game
+      operationId: createRound
+      tags:
+        - Round
+      requestBody:
+        $ref: "#/components/requestBodies/createRound"
+      responses:
+        200:
+          $ref: "#/components/responses/successCreateRound"
+        404:
+          $ref: "#/components/responses/errorResponse"
+
+  /v1/stats:
+    get:
+      summary: Retrive statistic player
+      description: This endpoint to retrieve all statistic player
+      operationId: getStats
+      tags:
+        - Stats
+      responses:
+        200:
+          $ref: "#/components/responses/getStats"
+        404:
+          $ref: "#/components/responses/errorResponse"
+    post:
+      summary: Create statistic
+      description: This endpoint to create statistic player
+      operationId: createStats
+      tags:
+        - Stats
+      requestBody:
+        $ref: "#/components/requestBodies/createStats"
+      responses:
+        201:
+          $ref: "#/components/responses/successCreateStats"
+        400:
+          $ref: "#/components/responses/errorResponse"
+
+  /v1/level:
+    get:
+      summary: Retrieve user level
+      description: This endpoint to retrieve all user level are available
+      operationId: getLevel
+      tags:
+        - Level
+      responses:
+        200:
+          $ref: "#/components/responses/getLevel"
+        404:
+          $ref: "#/components/responses/errorResponse"
+    post:
+      summary: Create a new level
+      description: This endpoint to create a new level
+      tags:
+        - Admin
+        - Level
+      requestBody:
+        $ref: "#/components/requestBodies/createLevel"
+      responses:
+        201:
+          $ref: "#/components/responses/successCreateLevel"
+        400:
+          $ref: "#/components/responses/errorResponse"
+  /v1/level/{levelId}:
+    put:
+      summary: Edit Level
+      description: This endpoint to edit level
+      tags:
+        - Admin
+        - Level
+      parameters:
+        - in: path
+          name: levelId
+          schema:
+            type: string
+          required: true
+          description: Id of level
+      requestBody:
+        $ref: "#/components/requestBodies/createLevel"
+      responses:
+        201:
+          $ref: "#/components/responses/successEditLevel"
+        400:
+          $ref: "#/components/responses/errorResponse"
+    delete:
+      summary: Delete Level
+      description: This endpoint to delete level
+      tags:
+        - Admin
+        - Level
+      parameters:
+        - in: path
+          name: levelId
+          schema:
+            type: string
+          required: true
+          description: Id of level
+      responses:
+        201:
+          $ref: "#/components/responses/deleteSuccess"
+        400:
+          $ref: "#/components/responses/errorResponse"
+  /v1/roles:
+    get:
+      summary: Retrieve roles user
+      description: This endpoint to retrieve all user role are available
+      operationId: getRoles
+      tags:
+        - Roles
+        - Admin
+      responses:
+        200:
+          $ref: "#/components/responses/getRoles"
+        404:
+          $ref: "#/components/responses/errorResponse"
+    post:
+      summary: Create new role
+      description: This endpoint for create a new role
+      tags:
+        - Admin
+        - Roles
+      requestBody:
+        $ref: "#/components/requestBodies/createRole"
+      responses:
+        201:
+          $ref: "#/components/responses/successCreateRole"
+        400:
+          $ref: "#/components/responses/errorResponse"
+  /v1/roles/{rolesId}:
+    put:
+      summary: Edit roles
+      description: This endpoint for edit role
+      tags:
+        - Admin
+        - Roles
+      parameters:
+        - in: path
+          name: rolesId
+          schema:
+            type: string
+          required: true
+          description: Id roles
+      requestBody:
+        $ref: "#/components/requestBodies/createRole"
+      responses:
+        201:
+          $ref: "#/components/responses/successEditRole"
+        400:
+          $ref: "#/components/responses/errorResponse"
+
+  /player/search:
+    get:
+      summary: Search player by point and level
+      description: This endpoint to search player by point and level
+      tags:
+        - "Fight"
+        - "User"
+      parameters:
+        - in: query
+          name: pointLevel
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: "#/components/responses/getPlayerByPointAndLevel"
+        404:
+          $ref: "#/components/responses/getPlayerByPointAndLevelNotFound"
+
+  /player/fight:
+    post:
+      summary: Fight with player
+      description: This endpoint to fight with other player and create room
+      tags:
+        - "Fight"
+        - "User"
+      requestBody:
+        $ref: "#/components/requestBodies/fightPlayer"
+      responses:
+        201:
+          $ref: "#/components/responses/successCreateFightRoom"
+        400:
+          $ref: "#/components/responses/errorResponse"
+
+  /player/stats:
+    get:
+      summary: Retrieve stats player
+      description: This endpoint to retrieve stats player
+      tags:
+        - "Fight"
+        - "User"
+      responses:
+        200:
+          $ref: "#/components/responses/getPlayerStats"
+        400:
+          $ref: "#/components/responses/errorResponse"
+
+  # /player/round:
+  #   get:
+  #     summary: Retrieve round when user played
+  #     description: This endpoint to retrieve round when user played
+  #     tags:
+  #       - "Fight"
+  #       - "User"
+  #     responses:
+  #       200:
+  #         $ref: "#/components/responses/getPlayerRound"
+
+components:
+  requestBodies:
+    createRound:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              round_winner:
+                type: string
+                example: hildaharisa
+              optionP1:
+                type: string
+                example: gunting
+              optionP2:
+                type: string
+                example: batu
+    createStats:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              point:
+                type: integer
+                example: 300
+              level:
+                type: string
+                example: Grand Master
+              win_rate:
+                type: number
+                example: 89.63
+    createRoom:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: comeOnFightMe
+              status:
+                type: string
+                enum:
+                  - open
+                  - closed
+                default: open
+    editRoom:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: comeOnFightMeBro
+              status:
+                type: string
+                enum:
+                  - open
+                  - closed
+                example: open
+    userLogin:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+                example: daffa404
+              password:
+                type: string
+                example: thisIsNotPassword
+    userRegister:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - username
+              - email
+              - password
+              - repeatPassword
+            properties:
+              username:
+                type: string
+                example: daffa404
+              email:
+                type: string
+                example: daffa@suwitgames.com
+              password:
+                type: string
+                example: thisIsNotPassword
+              repeatPassword:
+                type: string
+                example: thisIsNotPassword
+    createBiodata:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - "name"
+              - "phone"
+              - "address"
+              - "avatar"
+              - "bio"
+            $ref: "#/components/schemas/biodataEntity"
+    updateBiodata:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - "name"
+              - "phone"
+              - "address"
+              - "avatar"
+              - "bio"
+            $ref: "#/components/schemas/updateBiodataEntity"
+    editBiodata:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - "name"
+              - "phone"
+              - "address"
+              - "avatar"
+              - "bio"
+            properties:
+              name:
+                type: string
+                example: Daffa
+              phone:
+                type: string
+                example: +62 877-1234-1234
+              address:
+                type: string
+                example: Jalan Kenangan Gg. Rindu No. 28
+              avatar:
+                type: string
+                example: suwitgames.com/daffa404.png
+              bio:
+                type: string
+                example: miss someone far away
+    createRole:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - "role_name"
+            $ref: "#/components/schemas/roleSchema"
+    createLevel:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - level_name
+              - point_min
+              - point_max
+            $ref: "#/components/schemas/createLevelSchemas"
+    fightPlayer:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              room_name:
+                type: string
+                example: comeOnFightMe
+
+  responses:
+    deleteSuccess:
+      description: Response when delete success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Delete Success
+    errorResponse:
+      description: Response when something error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: FAIL
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Something error
+    home:
+      description: responses when user accessed home page
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Welcome to Suwit Games!
+    isLoginSuccess:
+      description: response if user login with correct credential.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                $ref: "#/components/schemas/getTokenSchema"
+    isLoginFailed:
+      description: response when the user login with invalid credential.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: FAIL
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid username or password!
+    isRegisterSuccess:
+      description: response when the user successfully registers.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Register success!
+                  username:
+                    type: string
+                    example: daffa404
+                  email:
+                    type: string
+                    example: daffa@suwitgames.com
+                  created_at:
+                    type: string
+                    example: 28-10-2021 23:30 +07:00
+                  updated_at:
+                    type: string
+                    example: 28-10-2021 23:30 +07:00
+    isRegisterFailed:
+      description: response when the user successfully registers.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: FAIL
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Register failed please check field correctly!
+    showProfile:
+      description: response details of user who logged in
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+                  username:
+                    type: string
+                    example: daffa404
+                  email:
+                    type: string
+                    example: daffa@suwitgames.com
+                  created_at:
+                    type: string
+                    example: 28-10-2021 23:30 +07:00
+                  updated_at:
+                    type: string
+                    example: 28-10-2021 23:30 +07:00
+                  biodata:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 4eb527a7-db0e-42f9-9e57-21422a01619b
+                      name:
+                        type: string
+                        example: Daffa Hanifisyafiq
+                      phone:
+                        type: string
+                        example: +62 877-1234-9999
+                      address:
+                        type: string
+                        example: Jalan Kenangan Gg. Rindu No. 28
+                      avatar:
+                        type: string
+                        example: suwitgames.com/daffa404.png
+                      bio:
+                        type: string
+                        example: miss someone far away
+                      created_at:
+                        type: string
+                        example: 28-10-2021 23:30 +07:00
+                      updated_at:
+                        type: string
+                        example: 28-10-2021 23:30 +07:00
+                      userId:
+                        type: string
+                        example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+    isCreateBiodataSuccess:
+      description: response create biodata of user who logged in
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 4eb527a7-db0e-42f9-9e57-21422a01619b
+                  name:
+                    type: string
+                    example: Daffa Hanifisyafiq
+                  phone:
+                    type: string
+                    example: +62 877-1234-9999
+                  address:
+                    type: string
+                    example: Jalan Kenangan Gg. Rindu No. 28
+                  avatar:
+                    type: string
+                    example: suwitgames.com/daffa404.png
+                  bio:
+                    type: string
+                    example: miss someone far away
+                  created_at:
+                    type: string
+                    example: 28-10-2021 23:30 +07:00
+                  updated_at:
+                    type: string
+                    example: 28-10-2021 23:30 +07:00
+    isCreateBiodataFailed:
+      description: response when invalid request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: FAIL
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Create biodata failed, please fill field correctly
+    isUpdateBiodataSuccess:
+      description: response update biodata of user who logged in
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 4eb527a7-db0e-42f9-9e57-21422a01619b
+                  name:
+                    type: string
+                    example: Daffa
+                  phone:
+                    type: string
+                    example: +62 877-1234-1234
+                  address:
+                    type: string
+                    example: Jalan Kenangan Gg. Rindu No. 28
+                  avatar:
+                    type: string
+                    example: suwitgames.com/daffa404.png
+                  bio:
+                    type: string
+                    example: miss someone far away
+                  created_at:
+                    type: string
+                    example: 28-10-2021 23:30 +07:00
+                  updated_at:
+                    type: string
+                    example: 28-10-2021 23:30 +07:00
+    isUpdateBiodataFailed:
+      description: response when invalid request.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: FAIL
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Update biodata failed, please fill field correctly
+    getAllUsers:
+      description: Fetch all user who have been registered
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              anyOf:
+                - $ref: "#/components/schemas/user1"
+                - $ref: "#/components/schemas/user2"
+    getUserById:
+      description: Fetch user by id who have been registered
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: "#/components/schemas/user1"
+    getUserByIdNotFound:
+      description: Response when user Id not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: FAIL
+              data:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    example: User id not found
+    isDeleteUserSuccess:
+      description: Response is delete success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Delete Success
+    isDeleteUserFailed:
+      description: Response is delete success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: FAIL
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Delete failed, something went wrong!
+    getGames:
+      description: Response for /games endpoint
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 5380cc52-2508-4a7c-aba6-59046518c58b
+                  played_at:
+                    type: string
+                    example: 01-12-2021 00:01 +07:00
+                  ended_at:
+                    type: string
+                    example: 04-12-2021 00:01 +07:00
+                  isActive:
+                    type: boolean
+                    example: true
+                  isWinner:
+                    type: string
+                    example: daffa404
+                  roundActive:
+                    type: string
+                    example: "3"
+                  created_at:
+                    type: string
+                    example: 01-12-2021 00:01 +07:00
+                  updated_at:
+                    type: string
+                    example: 04-12-2021 00:01 +07:00
+    successCreateGames:
+      description: Response for create gamescontent
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  played_at:
+                    type: string
+                    example: 01-12-2021 00:01 +07:00
+                  ended_at:
+                    type: string
+                    example: 04-12-2021 00:01 +07:00
+                  isActive:
+                    type: boolean
+                    example: true
+                  isWinner:
+                    type: string
+                    example: daffa404
+                  roundActive:
+                    type: string
+                    example: "3"
+                  created_at:
+                    type: string
+                    example: 01-12-2021 00:01 +07:00
+                  updated_at:
+                    type: string
+                    example: 04-12-2021 00:01 +07:00
+    getRoom:
+      description: Response for /room endpoint
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 5380cc52-2508-4a7c-aba6-59046518c58b
+              room_created_at:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+              room_owner:
+                type: string
+                example: daffa404
+              room_status:
+                type: string
+                enum:
+                  - open
+                  - closed
+                example: closed
+              gameId:
+                type: string
+                example: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+              created_at:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+              updated:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+    successCreateRoom:
+      description: Response for /room endpoint
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 5380cc52-2508-4a7c-aba6-59046518c58b
+              room_created_at:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+              room_name:
+                type: string
+                example: comeOnFightMe
+              room_status:
+                type: string
+                enum:
+                  - open
+                  - closed
+                example: open
+              gameId:
+                type: string
+                example: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+              created_at:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+              updated:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+    editCreateRoom:
+      description: Response for /room endpoint
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              room_name:
+                type: string
+                example: comeOnFightMeBro
+              room_status:
+                type: string
+                enum:
+                  - open
+                  - closed
+                example: open
+              gameId:
+                type: string
+                example: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+    successCreateRound:
+      description: Response for /round endpoint
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              round_created:
+                type: string
+                example: 01-12-2021 01:01 +07:00
+              round_winner:
+                type: string
+                example: hildaharisa
+              optionP1:
+                type: string
+                enum:
+                  - gunting
+                  - batu
+                  - kertas
+                example: gunting
+              optionP2:
+                type: string
+                enum:
+                  - gunting
+                  - batu
+                  - kertas
+                example: batu
+              created_at:
+                type: string
+                example: 01-12-2021 01:01 +07:00
+              updated_at:
+                type: string
+                example: 01-12-2021 01:10 +07:00
+    getRound:
+      description: Response for /round endpoint
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              round_created:
+                type: string
+                example: 01-12-2021 01:01 +07:00
+              round_ended:
+                type: string
+                example: 01-12-2021 01:10 +07:00
+              round_winner:
+                type: string
+                example: hildaharisa
+              optionP1:
+                type: string
+                enum:
+                  - gunting
+                  - batu
+                  - kertas
+                example: gunting
+              optionP2:
+                type: string
+                enum:
+                  - gunting
+                  - batu
+                  - kertas
+                example: batu
+              created_at:
+                type: string
+                example: 01-12-2021 01:01 +07:00
+              updated_at:
+                type: string
+                example: 01-12-2021 01:10 +07:00
+    getStats:
+      description: Response for /stats endpoints
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 9e9b2096-2446-423b-8e1e-9564253f1d0b
+              point:
+                type: integer
+                minimum: 0
+                example: 2500
+              level:
+                type: string
+                enum:
+                  - Novice
+                  - Class D
+                  - Class C
+                  - Class B
+                  - Class A
+                  - Candidate Master
+                  - Grand Master
+                example: Grand Master
+              win_rate:
+                type: number
+                format: float
+                example: 86.88
+              userId:
+                type: string
+                example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+    successCreateStats:
+      description: Response for /level endpoints
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success create stats
+                  point:
+                    type: integer
+                    example: 300
+                  level:
+                    type: string
+                    example: Grand Master
+                  win_rate:
+                    type: number
+                    example: 89.63
+
+    getLevel:
+      description: Response for /level endpoints
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              anyOf:
+                - $ref: "#/components/schemas/novice"
+                - $ref: "#/components/schemas/class_d"
+                - $ref: "#/components/schemas/class_c"
+                - $ref: "#/components/schemas/class_b"
+                - $ref: "#/components/schemas/class_a"
+                - $ref: "#/components/schemas/candidate_master"
+                - $ref: "#/components/schemas/grand_master"
+    getRoles:
+      description: Response for /roles endpoints
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              anyOf:
+                - $ref: "#/components/schemas/admin"
+                - $ref: "#/components/schemas/user"
+    successCreateRole:
+      description: Response for success creating role
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: USER role successfully created!
+    successEditRole:
+      description: Response for success updating role
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: USER role successfully updated!
+    successCreateLevel:
+      description: Response for success creating role
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Diamond level successfully created!
+    successEditLevel:
+      description: Response for success creating role
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Diamond level successfully updated!
+    getPlayerByPointAndLevel:
+      description: response for search player by point and level
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: OK
+              data:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    example: daffa404
+                  level:
+                    type: string
+                    example: Grand Master
+                  point:
+                    type: integer
+                    example: 3500
+    getPlayerByPointAndLevelNotFound:
+      description: response for search player by point and level
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: FAIL
+              data:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Player not found
+    successCreateFightRoom:
+      description: response when success create fight and create room
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 5380cc52-2508-4a7c-aba6-59046518c58b
+              room_created_at:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+              room_owner:
+                type: string
+                example: daffa404
+              room_status:
+                type: string
+                enum:
+                  - open
+                  - closed
+                example: open
+              room_name:
+                type: string
+                example: comeOnFightMe
+              gameId:
+                type: string
+                example: 76ff6889-a240-4f9a-8292-2344ede5f6d3
+              created_at:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+              updated:
+                type: string
+                example: 29-11-2021 00:01 +07:00
+    getPlayerStats:
+      description: response when get player stats
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              userId:
+                type: string
+                example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+              levelId:
+                type: string
+                example: 9e9b2096-2446-423b-8e1e-9564253f1d0b
+              point:
+                type: integer
+                example: 3500
+
+  schemas:
+    getTokenSchema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Login success!
+        accessToken:
+          type: string
+          example: XXXXX
+        refreshToken:
+          type: string
+          example: XXXXX
+    biodataEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Daffa Hanifisyafiq
+        phone:
+          type: string
+          example: +62 877-1234-9999
+        address:
+          type: string
+          example: Jalan Kenangan Gg. Rindu No. 28
+        avatar:
+          type: string
+          example: suwitgames.com/daffa404.png
+        bio:
+          type: string
+          example: miss someone far away
+    updateBiodataEntity:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Daffa
+        phone:
+          type: string
+          example: +62 877-1234-1234
+        address:
+          type: string
+          example: Jalan Kenangan Gg. Rindu No. 28
+        avatar:
+          type: string
+          example: suwitgames.com/daffa404.png
+        bio:
+          type: string
+          example: miss someone far away
+    user1:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+        username:
+          type: string
+          example: daffa404
+        email:
+          type: string
+          example: daffa@suwitgames.com
+        created_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 28-10-2021 23:30 +07:00
+        biodata:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 4eb527a7-db0e-42f9-9e57-21422a01619b
+            name:
+              type: string
+              example: Daffa Hanifisyafiq
+            phone:
+              type: string
+              example: +62 877-1234-9999
+            address:
+              type: string
+              example: Jalan Kenangan Gg. Rindu No. 28
+            avatar:
+              type: string
+              example: suwitgames.com/daffa404.png
+            bio:
+              type: string
+              example: miss someone far away
+            created_at:
+              type: string
+              example: 28-10-2021 23:30 +07:00
+            updated_at:
+              type: string
+              example: 28-10-2021 23:30 +07:00
+            userId:
+              type: string
+              example: 8bbefc02-6889-46c0-92da-4dadde73e4ee
+    user2:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 655ae3b2-57d2-43fe-925f-914bb536f15f
+        username:
+          type: string
+          example: hildaharisa
+        email:
+          type: string
+          example: hilda@suwitgames.com
+        created_at:
+          type: string
+          example: 29-10-2021 23:30 +07:00
+        updated_at:
+          type: string
+          example: 29-10-2021 23:30 +07:00
+        biodata:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 3852784d-335a-4e84-87d2-e0d1db28e103
+            name:
+              type: string
+              example: Hilda Harisa
+            phone:
+              type: string
+              example: +62 877-1515-9999
+            address:
+              type: string
+              example: Jalan Yuk No.28
+            avatar:
+              type: string
+              example: suwitgames.com/hildaharisa.png
+            bio:
+              type: string
+              example: beautiful girl
+            created_at:
+              type: string
+              example: 29-10-2021 23:30 +07:00
+            updated_at:
+              type: string
+              example: 29-10-2021 23:30 +07:00
+            userId:
+              type: string
+              example: 655ae3b2-57d2-43fe-925f-914bb536f15f
+    novice:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa1
+        level_name:
+          type: string
+          example: Novice
+        point_min:
+          type: integer
+          example: 0
+        point_max:
+          type: integer
+          example: 1199
+    class_d:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa2
+        level_name:
+          type: string
+          example: Class D
+        point_min:
+          type: integer
+          example: 1200
+        point_max:
+          type: integer
+          example: 1399
+    class_c:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa3
+        level_name:
+          type: string
+          example: Class C
+        point_min:
+          type: integer
+          example: 1400
+        point_max:
+          type: integer
+          example: 1599
+    class_b:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa4
+        level_name:
+          type: string
+          example: Class B
+        point_min:
+          type: integer
+          example: 1600
+        point_max:
+          type: integer
+          example: 1799
+    class_a:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa5
+        level_name:
+          type: string
+          example: Class A
+        point_min:
+          type: integer
+          example: 1800
+        point_max:
+          type: integer
+          example: 1999
+    candidate_master:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa6
+        level_name:
+          type: string
+          example: Candidate Master
+        point_min:
+          type: integer
+          example: 200
+        point_max:
+          type: integer
+          example: 2499
+    grand_master:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 2f1a53f3-98bb-440b-ba15-b455deda2aa7
+        level_name:
+          type: string
+          example: Grand Master
+        point_min:
+          type: integer
+          example: 2500
+        point_max:
+          type: integer
+          example: 99999999
+    admin:
+      type: object
+      properties:
+        roles:
+          type: object
+          example: admin
+    user:
+      type: object
+      properties:
+        roles:
+          type: object
+          example: user
+    roleSchema:
+      type: object
+      properties:
+        role_name:
+          type: string
+          example: "User"
+    createLevelSchemas:
+      type: object
+      properties:
+        level_name:
+          type: string
+          example: Diamond
+        point_min:
+          type: integer
+          example: 10000
+        point_max:
+          type: integer
+          example: 20000

@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-4"></div>
+  <div class="col-4">
+    <div class="card mb-5">
+      <div class="card-header">
+        <a href="/users" class="btn btn-md btn-secondary"><i
+            class="fas fa-chevron-left"
+          ></i></a>
+      </div>
+      <div class="card-body">
+        <form
+          class=""
+          action="/users/edit/{{data.id}}?_method=put"
+          method="POST"
+        >
+          <label class="form-group">Username</label>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Username"
+              name="username"
+              value="{{data.username}}"
+            />
+          </div>
+          <label class="form-group">Rank</label>
+          <div class="form-group">
+            <select name="rank" class="form-control">
+              <option
+                selected
+                disabled
+                value="{{data.rank}}"
+              >{{data.rank}}</option>
+              <option value="Bronze">Bronze</option>
+              <option value="Silver">Silver</option>
+              <option value="Gold">Gold</option>
+            </select>
+          </div>
+          <label class="form-group">Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Your name"
+              name="name"
+              value="{{data.biodata.name}}"
+            />
+          </div>
+          <label class="form-group">Email</label>
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="user@email.com"
+              name="email"
+              value="{{data.biodata.email}}"
+            />
+          </div>
+          <label class="form-group">Gender</label>
+          <div class="form-group">
+            <select name="gender" class="form-control">
+              <option
+                selected
+                disabled
+                value="{{data.biodata.gender}}"
+              >{{data.biodata.gender}}</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <label class="form-group">Birthdate</label>
+          <div class="form-group">
+            <input
+              type="date"
+              class="form-control"
+              name="birthdate"
+              value="{{data.biodata.birthdate}}"
+            />
+          </div>
+          <label class="form-group">Address</label>
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              name="address"
+            >{{data.biodata.address}}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary float-right">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-4"></div>
+</div>

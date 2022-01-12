@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "daffa",
+    "password": "1",
+    "database": "FSW2108KM0015_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "daffa",
+    "password": "1",
+    "database": "FSW2108KM0015_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "daffa",
+    "password": "1",
+    "database": "FSW2108KM0015_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

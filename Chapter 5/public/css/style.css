@@ -1,0 +1,744 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+
+/* Halaman ini dibuat dengan menggunakan teknik mobile first, dan kode dibawah adalah untuk layar berukuran min 576px sebelum masuk ke media query */
+
+html {
+    scroll-behavior: smooth;
+}
+
+.aos-overflow {
+    overflow-x: hidden !important;
+}
+
+a {
+    text-decoration: none !important;
+    color: #fff;
+}
+
+
+/* Navbar */
+
+.navbar {
+    font-family: "Poppins";
+}
+
+.navbar-logo {
+    font-size: 2rem !important;
+    transition: 0.5s;
+}
+
+.navbar-logo:hover {
+    color: #ffb740 !important;
+}
+
+.bg-navbar {
+    background-color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
+
+.nav-link {
+    color: rgb(207, 207, 207) !important;
+    transition: 0.5s;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #ffb740 !important;
+}
+
+.navbar-toggler {
+    /* border-color: #FFF; */
+    background-color: #fff;
+}
+
+
+/* Navbar Animation on Hover */
+
+.nav-animation {
+    /* text-align: center; */
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.nav-animation * {
+    box-sizing: border-box;
+}
+
+.nav-animation li {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 1.5em;
+    padding: 0;
+}
+
+.nav-animation a {
+    padding: 0.5em 0;
+    color: rgba(255, 255, 255, 0.5);
+    position: relative;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.nav-animation a:before,
+.nav-animation a:after {
+    position: absolute;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+}
+
+.nav-animation a:before {
+    bottom: 0;
+    display: block;
+    height: 3px;
+    width: 0%;
+    content: "";
+    background-color: #ffb740;
+}
+
+.nav-animation a:after {
+    left: 0;
+    top: 0;
+    padding: 0.5em 0;
+    position: absolute;
+    content: attr(data-hover);
+    color: #ffffff;
+    white-space: nowrap;
+    max-width: 0%;
+    overflow: hidden;
+}
+
+.nav-animation a:hover:before,
+.nav-animation .current a:before {
+    opacity: 1;
+    width: 100%;
+}
+
+.nav-animation a:hover:after,
+.nav-animation .current a:after {
+    max-width: 100%;
+}
+
+
+/* 1. Section One */
+
+.section-one {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url(../img/background/main-section.png);
+    /* background-color: red; */
+    background-size: cover;
+    background-position: center;
+}
+
+.h1-section-one {
+    color: #fff;
+    font-size: 5rem;
+    font-family: "Poppins";
+    letter-spacing: 0.1rem;
+}
+
+.p1-section-one {
+    color: #fff;
+    font-size: 1.3rem;
+    font-family: "Montserrat";
+}
+
+.btn-section-one {
+    transition: 0.3s;
+    color: #000;
+    text-transform: uppercase;
+    background-color: #ffb740;
+    font-family: "Poppins";
+    font-weight: 700;
+    padding: 0.9rem 4.5rem;
+}
+
+.btn-section-one:hover {
+    color: #fff;
+}
+
+.the-story-section-one {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.txt-story-section-one {
+    transition: 0.5s;
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.txt-story-section-one:hover {
+    color: #ffb740 !important;
+}
+
+
+/* .txt-story-section-one:hover {
+    color: #000;
+} */
+
+
+/* 2. Section Two */
+
+.section-two {
+    background-image: radial-gradient(136.03% 54.57% at 50% 48.04%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 60.63%, #080a0b 99.74%), url(../img/background/speciality-section.png);
+    background-size: cover;
+}
+
+.p1-section-two {
+    color: #fff;
+    font-family: "Poppins";
+    font-size: 1.8rem;
+}
+
+.h1-section-two {
+    color: #fff;
+    font-family: "Poppins";
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
+.carousel-indicators button {
+    width: 10px !important;
+    height: 10px !important;
+    margin-right: 15px !important;
+    margin-left: 15px !important;
+    border-radius: 50% !important;
+    border: 0 !important;
+    background-color: transparent !important;
+    box-shadow: 0 0 0 0.2rem rgb(255, 255, 255) !important;
+}
+
+
+/* .carousel {
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-inner {
+    width: 80% !important;
+} */
+
+
+/* 3. Section Three */
+
+.section-three {
+    background-image: radial-gradient(136.03% 54.57% at 50% 48.04%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 60.63%, #080a0b 99.74%), url(../img/background/feature-section.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.p1-section-three {
+    color: #fff;
+    font-family: "Poppins";
+    font-size: 1.8rem;
+}
+
+.h1-section-three {
+    color: #fff;
+    font-family: "Poppins";
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
+.h5-timeline-area {
+    color: #ffb740;
+    text-transform: uppercase;
+    font-family: "Poppins";
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
+
+.p1-timeline-area {
+    color: #fff;
+    font-family: "Montserrat";
+    font-size: 1.2rem;
+}
+
+ul.timeline-area {
+    list-style-type: none;
+    position: relative;
+}
+
+
+/* Garis */
+
+ul.timeline-area:before {
+    content: " ";
+    background: #d4d9df;
+    display: inline-block;
+    position: absolute;
+    left: 29px;
+    width: 2px;
+    height: 31%;
+    z-index: 400;
+}
+
+
+/* Jarak */
+
+ul.timeline-area>li {
+    margin: 20px 0;
+    padding-left: 40px;
+}
+
+
+/* Circle */
+
+ul.timeline-area>li.traditional-games:before {
+    content: " ";
+    background: white;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    /* border: 3px solid #FFB740; */
+    border: 3px solid #fff;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 400;
+}
+
+ul.timeline-area>li.game-suit:before {
+    content: " ";
+    /* background: white; */
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    /* border: 3px solid #FFB740; */
+    border: 3px solid #fff;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 400;
+}
+
+ul.timeline-area>li.gbk:before {
+    content: " ";
+    /* background: white; */
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    /* border: 3px solid #FFB740; */
+    border: 3px solid #fff;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 400;
+}
+
+
+/* 4. Section Four */
+
+.section-four {
+    background-image: radial-gradient(136.03% 54.57% at 50% 48.04%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 60.63%, #080a0b 99.74%), url(../img/background/requirements-section.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.p1-section-four {
+    color: #fff;
+    font-size: 1.2rem;
+    /* justify-content: center; */
+    padding-top: 8rem;
+    padding-bottom: 2rem;
+}
+
+.h1-section-four {
+    color: #fff;
+    font-family: "Poppins";
+    text-transform: uppercase;
+    font-size: 4rem;
+}
+
+.table-section-four {
+    margin: 10px;
+    padding: 1px;
+    width: 500px;
+    height: 350px;
+    background-image: url(../img/table-border.png);
+    position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.table-content-section-four>h5 {
+    color: #ffb740;
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    font-family: "Poppins";
+    letter-spacing: 0.1rem;
+}
+
+.table-content-section-four>p {
+    color: #fff;
+    font-size: 1rem;
+    /* text-transform: uppercase; */
+    font-family: "Montserrat";
+}
+
+.border-bottom-section-four {
+    border-bottom: 1px solid rgb(177, 177, 177);
+}
+
+.border-right-section-four {
+    border-right: 1px solid rgb(177, 177, 177);
+}
+
+
+/* 5. Section Five */
+
+.section-five {
+    background-image: url(../img/background/top-scores.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.h1-section-five {
+    color: #fff;
+    font-family: "Poppins";
+    text-transform: uppercase;
+    font-size: 4rem;
+}
+
+.p1-section-five {
+    color: #fff;
+    font-family: "Open Sans";
+    letter-spacing: 0.1rem;
+}
+
+.btn-section-five {
+    color: #000;
+    transition: 0.3s;
+    text-transform: uppercase;
+    background-color: #ffb740;
+    font-family: "Poppins";
+    font-weight: 700;
+    padding: 0.9rem 4.5rem;
+}
+
+.btn-section-five:hover {
+    color: #fff;
+}
+
+.h5-name-section-five {
+    color: #ffb740;
+    font-family: "Poppins";
+}
+
+.p-job-section-five {
+    color: #fff;
+    font-family: "Poppins";
+}
+
+.p-message-section-five {
+    color: #fff !important;
+}
+
+.footer-card-section-five {
+    color: rgb(161, 161, 161);
+    font-size: 1rem;
+}
+
+.img-profile {
+    box-shadow: 5px 5px #ffb740;
+}
+
+
+/* 6. Section Six */
+
+.img-gems {
+    width: 200px;
+    display: flex;
+    margin: auto;
+    /* justify-content: center; */
+}
+
+.section-six {
+    background-image: url(../img/background/bg-black.png);
+    background-size: cover;
+    background-position: center;
+    padding-top: 10rem;
+}
+
+.p1-section-six {
+    color: #fff;
+    font-size: 2rem;
+    font-family: "Montserrat";
+}
+
+.p2-section-six {
+    color: #fff;
+    font-size: 1rem;
+    font-family: "Montserrat";
+    letter-spacing: 0.1rem;
+}
+
+.h1-section-six {
+    color: #fff;
+    font-size: 4rem;
+    font-family: "Poppins";
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+}
+
+.btn-subs-section-five {
+    color: #000;
+    transition: 0.3s;
+    text-transform: uppercase;
+    background-color: #ffb740;
+    font-family: "Poppins";
+    font-weight: 700;
+    padding: 1rem 0.8rem;
+}
+
+.btn-subs-section-five:hover {
+    color: #fff;
+}
+
+.nav-bottom-section-six {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-family: "Poppins";
+    text-decoration: none;
+    display: flex;
+    /* align-items: center; */
+    text-align: center;
+    justify-content: center;
+}
+
+.nav-bottom-section-six a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-bottom-section-six-icons {
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+
+/* .twitter-icons {
+    width: 30px;
+} */
+
+.garis-section-six {
+    border: 2px solid #fff;
+}
+
+.footer-section,
+.bg-black {
+    background-color: #000;
+}
+
+.footer-section-six {
+    color: #fff;
+    font-family: "Poppins";
+}
+
+ul.right-side li {
+    border-right: 1px solid #fff;
+    display: inline;
+    padding-right: 1rem;
+}
+
+.left-side {
+    color: rgb(160, 160, 160);
+    text-align: center;
+}
+
+.right-side {
+    padding-top: 5px;
+}
+
+.right-side a {
+    /* list-style: none; */
+    display: flex;
+    /* align-items: center; */
+    /* align-self: center; */
+}
+
+.right-side a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.right-side a:hover {
+    color: rgb(160, 160, 160);
+}
+
+.nav-bottom-section-six a:hover {
+    color: rgb(160, 160, 160);
+}
+
+.facebook-icons a:hover {
+    color: blue;
+}
+
+.twitter-icons a:hover {
+    color: rgb(43, 160, 255);
+}
+
+.youtube-icons a:hover {
+    color: red;
+}
+
+.twitch-icons a:hover {
+    color: rgb(255, 58, 255);
+}
+
+
+/* 
+.gems-img {
+    background-image: url(/assets/background/gems.png);
+    width: 100px;
+    height: 350px;
+    position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+} */
+
+
+/* Responsive */
+
+@media only screen and (min-width: 768px) {
+    .navbar-logo {
+        font-size: 2.5rem !important;
+    }
+    .nav-link {
+        font-size: 1.2rem;
+    }
+    /* Section One */
+    .h1-section-one {
+        font-size: 5rem;
+    }
+    /* Section Two */
+    .h1-section-two {
+        font-size: 5rem;
+    }
+    /* .carousel {
+        display: flex;
+        justify-content: center;
+    }
+    .carousel-inner {
+        width: 80% !important;
+    } */
+    /* Section Three */
+    .section-three {
+        background-image: radial-gradient(136.03% 54.57% at 50% 48.04%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.6) 60.63%, #080a0b 99.74%), url(../img/background/feature-section.png);
+    }
+    .h1-section-three {
+        font-size: 5rem;
+    }
+    .h5-timeline-area {
+        font-size: 1.8rem;
+    }
+    .p1-timeline-area {
+        font-size: 1.4rem;
+    }
+    ul.timeline-area:before {
+        height: 30%;
+    }
+    /* Section Four */
+    .section-four {
+        background-image: radial-gradient(136.03% 54.57% at 50% 48.04%, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.9) 60.63%, #080a0b 99.74%), url(../img/background/requirements-section.png);
+    }
+    .h1-section-four {
+        font-size: 5rem;
+    }
+    /* Section Five */
+    .footer-card-section-five {
+        font-size: 1.2rem;
+    }
+    /* Section Six */
+    .h1-section-six {
+        font-size: 3.2rem;
+    }
+    .btn-subs-section-five {
+        font-weight: 700;
+        padding: 0.3rem 0.8rem;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    /* Section Two */
+    .carousel {
+        display: flex;
+        justify-content: center;
+    }
+    .carousel-inner {
+        width: 80% !important;
+    }
+    /* Section Three */
+    ul.timeline-area:before {
+        height: 31%;
+    }
+    /* Section Four */
+    .table-section-four {
+        margin: 10px;
+        padding: 1px;
+        width: 500px;
+        height: 350px;
+        background-image: url(../img/table-border.png);
+        position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .border-bottom-section-four {
+        border-bottom: 1px solid rgb(177, 177, 177);
+        margin-top: 100px;
+    }
+    /* Section Five */
+    .p1-section-five {
+        font-size: 1.2rem;
+    }
+    /* Section Six */
+    .img-gems {
+        width: 300px;
+    }
+    .p2-section-six {
+        font-size: 1.2rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    /* Navbar */
+    .navbar-logo {
+        font-size: 1.8rem !important;
+    }
+    /* Section Three */
+    ul.timeline-area:before {
+        height: 30%;
+    }
+    /* Section Six */
+    .nav-bottom-section-six-icons {
+        padding-top: 0;
+    }
+    .btn-subs-section-five {
+        padding: 1rem 0.9rem;
+    }
+    .right-side {
+        padding-top: 0px;
+    }
+    /* .right-side a {
+        display: flex;
+        align-self: end;
+    } */
+    .nav-bottom-section-six {
+        text-align: end;
+    }
+    .nav-bottom-section-six-icons {
+        text-align: end;
+    }
+    .right-side a {
+        display: inline;
+    }
+}

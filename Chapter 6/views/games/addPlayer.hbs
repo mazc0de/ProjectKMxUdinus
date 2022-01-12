@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-4"></div>
+  <div class="col-4">
+    <div class="card mb-5">
+      <div class="card-header">
+        <a href="/games" class="btn btn-md btn-secondary"><i
+            class="fas fa-chevron-left"
+          ></i></a>
+      </div>
+      <div class="card-body">
+        <form class="" action="/games/player" method="POST">
+          <input type="hidden" name="gameId" value="{{game.id}}" />
+          <label class="form-group">Room Name</label>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Room Name"
+              name="room"
+              value="{{game.room}}"
+              disabled
+            />
+          </div>
+          <label class="form-group">Player</label>
+          <div class="form-group">
+            <select name="userId" class="form-control">
+              <option selected disabled>Player</option>
+              {{#each userData}}
+                <option value="{{id}}">{{username}}</option>
+              {{/each}}
+            </select>
+          </div>
+          {{! <label class="form-group">Choice</label>
+          <div class="form-group">
+            <select name="choice" class="form-control">
+              <option selected disabled>Choose your choice</option>
+              <option value="Gunting">Gunting</option>
+              <option value="Batu">Batu</option>
+              <option value="Kertas">Kertas</option>
+            </select>
+          </div> }}
+          <button type="submit" class="btn btn-primary float-right">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-4"></div>
+</div>
